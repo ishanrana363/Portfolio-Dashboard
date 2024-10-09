@@ -16,7 +16,7 @@ const skillStore = create((set) => ({
     totalSkillLength: [],
     totalSkillDataList: [],
     totalSkillDataApi: async (pageNo, perPage, searchValue) => {
-        let res = await useAxios.get(`/all-project-by-admin/${pageNo}/${perPage}/${searchValue}`,config);
+        let res = await useAxios.get(`/all-skill-by-admin/${pageNo}/${perPage}/${searchValue}`,config);
         if (res.data["status"] === "success") {
             if (res.data["data"]["0"]["Rows"].length > 0) {
                 set({ totalSkillDataList: res.data["data"]["0"]["Rows"] });
@@ -28,11 +28,11 @@ const skillStore = create((set) => ({
             return false;
         }
     },
-    singleProjectData : [],
-    singleProjectDataApi: async (id) => {
-        let res = await useAxios.get(`/sigle-project/${id}`, config);
+    singleSkillData : [],
+    singleSkillDataApi: async (id) => {
+        let res = await useAxios.get(`/single-skill/${id}`, config);
         if (res.data["status"] === "success") {
-            set({ singleProjectData: res.data["data"]});
+            set({ singleSkillData: res.data["data"]});
         } else {
             return false;
         }

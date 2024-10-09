@@ -6,6 +6,7 @@ import LoginFormPage from "../pages/login-form-page/LoginFormPage";
 import RegistrationForm from "../component/registration-form/RegistrationFrom";
 import ProjectUpdatePage from "../pages/project-page/ProjectUpdatePage";
 import SkillCreatePage from "../pages/skill/SkillCreatePage";
+import AllSkillPage from "../pages/skill/AllSkillPage";
 
 // Check if the user is authenticated (i.e., has a token in localStorage)
 const isAuthenticated = () => {
@@ -40,6 +41,10 @@ export const route = createBrowserRouter([
             {
                 path : "skill-create",
                 element : <SkillCreatePage></SkillCreatePage>
+            },
+            {
+                path : "all-skill",
+                element : <AllSkillPage></AllSkillPage>
             }
         ],
     },
