@@ -34,3 +34,12 @@ export const projectDeleteApi = async (id)=>{
         return false;
     }
 }
+
+export const projectUpdateApi = async (id,payload)=>{
+    let res = await axiosPublic.put(`/project-update/${id}`, payload,config);
+    if (res.data.status === "success") {
+        return res.data.status
+    } else {
+        return false;
+    }
+};

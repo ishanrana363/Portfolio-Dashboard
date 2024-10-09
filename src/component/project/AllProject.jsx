@@ -3,17 +3,18 @@ import ReactPaginate from 'react-paginate';
 import projectStore from '../../apiRequest/project-api/projectStore';
 import SpinnerLoader from '../full-screen-loder/Spinner';
 import moment from 'moment';
-import { NavLink, useParams } from 'react-router-dom';
+import { Link, NavLink, useNavigate, useParams } from 'react-router-dom';
 import { deleteAlert } from '../../helper/deleteAlert';
 import { projectDeleteApi } from '../../apiRequest/project-api/projectApi';
 import toast from 'react-hot-toast';
 
 const ProjectTable = () => {
+    const navigate = useNavigate();
     const { totalProjectDataApi, totalProjectDataList, totalProjectLength } = projectStore();
     const [loader, setLoader] = useState(false);
     const [perPage, setPerPage] = useState(5);
     const [searchValue, setSearchValue] = useState(0);
-    const {id} = useParams();
+    const { id } = useParams();
 
     useEffect(() => {
         (async () => {
@@ -54,28 +55,27 @@ const ProjectTable = () => {
         setLoader(false);
     };
 
-    const projectDelete = async (id) =>{
+    const projectDelete = async (id) => {
         let resp = await deleteAlert();
-        if(resp.isConfirmed){
+        if (resp.isConfirmed) {
             setLoader(true);
             let res = await projectDeleteApi(id);
             setLoader(false);
-            if(res){
+            if (res) {
                 setLoader(true);
                 await totalProjectDataApi(1, perPage, searchValue);
                 setLoader(false);
                 toast.success("Deleted successfully");
-            }else{
+            } else {
                 toast.error("Failed to delete");
             }
         }
-    }
+    };
 
     return (
         <>
             <div className="p-4">
-            <h1 className='text-center text-lg font-semibold mb-6 '> Total Project : { totalProjectLength } </h1>
-                {/* Search and Filter */}
+                <h1 className='text-center text-lg font-semibold mb-6'>Total Project: {totalProjectLength}</h1>
                 <div className="flex justify-between items-center mb-4">
                     <div className="flex items-center">
                         <select
@@ -126,28 +126,30 @@ const ProjectTable = () => {
                         <tbody>
                             {
                                 totalProjectDataList && totalProjectDataList.map((item, i) => (
-                                    <tr key={i} className="hover:bg-gray-100 text-center">
-                                        <td className="py-3 px-4 border-b">{item.name}</td>
-                                        <td className="py-3 px-4 border-b">
+                                    <tr  key={i} className="hover:bg-gray-100 text-center cursor-pointer ">
+                                        <td onClick={()=>{navigate(`/dashboard/porject-details/${item["_id"]}`)}} className="py-3 px-4 border-b">{item.name}</td>
+                                        <td onClick={()=>{navigate(`/dashboard/porject-details/${item["_id"]}`)}} className="py-3 px-4 border-b">
                                             <img
-                                                src={item.img} // Updated this to use 'item.img'
+                                                src={item.img}
                                                 alt={item.name}
                                                 className="h-12 w-12 rounded-full object-cover mx-auto"
                                             />
                                         </td>
-                                        <td className="py-3 px-4 border-b text-blue-500">
+                                        <td onClick={()=>{navigate(`/dashboard/porject-details/${item["_id"]}`)}} className="py-3 px-4 border-b text-blue-500">
                                             <a href={item.url} target="_blank" rel="noopener noreferrer">
                                                 {item.url}
                                             </a>
                                         </td>
-                                        <td className="py-3 px-4 border-b">{item.documentation}</td>
-                                        <td className="py-3 px-4 border-b">{moment(item.createdAt).format("MMMM Do YYYY")}</td>
+                                        <td onClick={()=>{navigate(`/dashboard/porject-details/${item["_id"]}`)}} className="py-3 px-4 border-b">{item.documentation}</td>
+                                        <td onClick={()=>{navigate(`/dashboard/porject-details/${item["_id"]}`)}} className="py-3 px-4 border-b">{moment(item.createdAt).format("MMMM Do YYYY")}</td>
                                         <td className="py-3 px-4 border-b">
                                             <div className="flex justify-center space-x-2">
-                                                <button className="bg-teal-500 text-white px-3 py-1 rounded hover:bg-teal-600">
-                                                    <NavLink to={`/dashboard/project-update/${item["_id"]}`} >Edit</NavLink>
-                                                </button>
-                                                <button onClick={()=>{projectDelete(item["_id"])}} className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
+                                                <NavLink to={`/dashboard/project-update/${item["_id"]}`}>
+                                                    <button className="bg-teal-500 text-white px-3 py-1 rounded hover:bg-teal-600">
+                                                        Edit
+                                                    </button>
+                                                </NavLink>
+                                                <button onClick={() => projectDelete(item["_id"])} className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
                                                     Delete
                                                 </button>
                                             </div>
@@ -165,7 +167,7 @@ const ProjectTable = () => {
                         <ReactPaginate
                             previousLabel="<"
                             nextLabel=">"
-                            pageCount={Math.ceil(totalProjectLength / perPage)} // Use Math.ceil to handle partial pages
+                            pageCount={Math.ceil(totalProjectLength / perPage)}
                             marginPagesDisplayed={2}
                             pageRangeDisplayed={5}
                             onPageChange={handlePageChange}
@@ -178,7 +180,7 @@ const ProjectTable = () => {
             </div>
             {
                 loader && (
-                    <div>
+                    <div className="flex justify-center items-center h-screen">
                         <SpinnerLoader />
                     </div>
                 )
