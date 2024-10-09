@@ -3,7 +3,7 @@ import ReactPaginate from 'react-paginate';
 import projectStore from '../../apiRequest/project-api/projectStore';
 import SpinnerLoader from '../full-screen-loder/Spinner';
 import moment from 'moment';
-import { Link, NavLink, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { deleteAlert } from '../../helper/deleteAlert';
 import { projectDeleteApi } from '../../apiRequest/project-api/projectApi';
 import toast from 'react-hot-toast';
@@ -13,7 +13,7 @@ const ProjectTable = () => {
     const { totalProjectDataApi, totalProjectDataList, totalProjectLength } = projectStore();
     const [loader, setLoader] = useState(false);
     const [perPage, setPerPage] = useState(5);
-    const [searchValue, setSearchValue] = useState(0);
+    const [searchValue, setSearchValue] = useState('');
     const { id } = useParams();
 
     useEffect(() => {
@@ -115,6 +115,7 @@ const ProjectTable = () => {
                     <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-lg">
                         <thead>
                             <tr className="bg-teal-500 text-white text-center">
+                                <th className="py-3 px-4 border-b">Serial</th>
                                 <th className="py-3 px-4 border-b">Name</th>
                                 <th className="py-3 px-4 border-b">Image</th>
                                 <th className="py-3 px-4 border-b">URL</th>
@@ -126,29 +127,30 @@ const ProjectTable = () => {
                         <tbody>
                             {
                                 totalProjectDataList && totalProjectDataList.map((item, i) => (
-                                    <tr  key={i} className="hover:bg-gray-100 text-center cursor-pointer ">
-                                        <td onClick={()=>{navigate(`/dashboard/porject-details/${item["_id"]}`)}} className="py-3 px-4 border-b">{item.name}</td>
-                                        <td onClick={()=>{navigate(`/dashboard/porject-details/${item["_id"]}`)}} className="py-3 px-4 border-b">
+                                    <tr key={i} className="hover:bg-gray-100 text-center cursor-pointer">
+                                        <td className="py-3 px-4 border-b">{i + 1}</td>
+                                        <td className="py-3 px-4 border-b">{item.name.slice(0,15)}....</td>
+                                        <td className="py-3 px-4 border-b">
                                             <img
                                                 src={item.img}
                                                 alt={item.name}
                                                 className="h-12 w-12 rounded-full object-cover mx-auto"
                                             />
                                         </td>
-                                        <td onClick={()=>{navigate(`/dashboard/porject-details/${item["_id"]}`)}} className="py-3 px-4 border-b text-blue-500">
+                                        <td className="py-3 px-4 border-b text-blue-500">
                                             <a href={item.url} target="_blank" rel="noopener noreferrer">
-                                                {item.url}
+                                                {item.url.slice(0, 15)}....
                                             </a>
                                         </td>
-                                        <td onClick={()=>{navigate(`/dashboard/porject-details/${item["_id"]}`)}} className="py-3 px-4 border-b">{item.documentation}</td>
-                                        <td onClick={()=>{navigate(`/dashboard/porject-details/${item["_id"]}`)}} className="py-3 px-4 border-b">{moment(item.createdAt).format("MMMM Do YYYY")}</td>
+                                        <td className="py-3 px-4 border-b">{item.documentation.slice(0,10)}...</td>
+                                        <td className="py-3 px-4 border-b">{moment(item.createdAt).format("MMMM Do YYYY")}</td>
                                         <td className="py-3 px-4 border-b">
                                             <div className="flex justify-center space-x-2">
-                                                <NavLink to={`/dashboard/project-update/${item["_id"]}`}>
+                                                <Link to={`/dashboard/project-update/${item["_id"]}`}>
                                                     <button className="bg-teal-500 text-white px-3 py-1 rounded hover:bg-teal-600">
                                                         Edit
                                                     </button>
-                                                </NavLink>
+                                                </Link>
                                                 <button onClick={() => projectDelete(item["_id"])} className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
                                                     Delete
                                                 </button>

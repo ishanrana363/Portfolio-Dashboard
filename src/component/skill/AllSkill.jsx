@@ -63,7 +63,7 @@ const AllSkill = () => {
             setLoader(false);
             if (res) {
                 setLoader(true);
-                await totalSkillDataApi(1, perPage, searchValue);
+                await totalSkillDataApi(1, 5, 0);
                 setLoader(false);
                 toast.success("Deleted successfully");
             } else {
