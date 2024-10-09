@@ -101,7 +101,7 @@ const ProjectTable = () => {
                             />
                             <button
                                 onClick={submitSearchValue}
-                                className="btn btn-success btn-sm ml-2 bg-teal-500 text-white px-4 py-1 rounded hover:bg-teal-600"
+                                className="btn btn-success btn-sm ml-2 bg-teal-500 text-white px-4 py-1 mt-1 rounded hover:bg-teal-600"
                                 type="button"
                             >
                                 Search
