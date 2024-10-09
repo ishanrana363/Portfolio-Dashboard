@@ -19,9 +19,10 @@ const ProjectCreate = () => {
         const documentation = e.target.documentation.value;
 
         let ImageUrl = '';
-        if (img) {
-            ImageUrl = await uploadImg(img);
+        if (!img?.name) {
+            ImageUrl = ""
         }
+        ImageUrl = await uploadImg(img);
 
         let payload = {
             name,

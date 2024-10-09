@@ -165,8 +165,8 @@ const ProjectTable = () => {
                 <div className="mt-5">
                     <nav aria-label="Page navigation example">
                         <ReactPaginate
-                            previousLabel="<"
-                            nextLabel=">"
+                            previousLabel="prev"
+                            nextLabel="next"
                             pageCount={Math.ceil(totalProjectLength / perPage)}
                             marginPagesDisplayed={2}
                             pageRangeDisplayed={5}
