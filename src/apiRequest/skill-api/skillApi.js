@@ -17,3 +17,12 @@ export const createSkillApi = async (payload)=>{
         return false;
     }
 }
+
+export const deleteSkillApi = async (id)=>{
+    let res = await axiosPublic.delete(`/skill-delete/${id}`,config);
+    if (res.data.status === "success") {
+        return res.data.status
+    } else {
+        return false;
+    }
+};
