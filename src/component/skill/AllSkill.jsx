@@ -137,7 +137,7 @@ const AllSkill = () => {
                                             <td onClick={() => { navigate(`/dashboard/porject-details/${item["_id"]}`) }} className="py-3 px-4 border-b">{moment(item.createdAt).format("MMMM Do YYYY")}</td>
                                             <td className="py-3 px-4 border-b">
                                                 <div className="flex justify-center space-x-2">
-                                                    <NavLink to={`/dashboard/project-update/${item["_id"]}`}>
+                                                    <NavLink to={`/dashboard/skill-update/${item["_id"]}`}>
                                                         <button className="bg-teal-500 text-white px-3 py-1 rounded hover:bg-teal-600">
                                                             Edit
                                                         </button>

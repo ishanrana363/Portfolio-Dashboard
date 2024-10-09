@@ -26,3 +26,12 @@ export const deleteSkillApi = async (id)=>{
         return false;
     }
 };
+
+export const updateSkillApi = async (id,payload)=>{
+    let res = await axiosPublic.put(`/skill-update/${id}`, payload,config);
+    if (res.data.status === "success") {
+        return res.data.status
+    } else {
+        return false;
+    }
+};
