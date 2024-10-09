@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'; // Import Framer Motion
 import { Toaster } from 'react-hot-toast';
 import { uploadImg } from '../../upload-img/UploadImg';
 import Swal from 'sweetalert2';
-import { createAccount } from '../../apiRequest/adminApi';
+import { createAccount } from './../../apiRequest/admin-api/adminApi';
 
 function RegistrationForm() {
 

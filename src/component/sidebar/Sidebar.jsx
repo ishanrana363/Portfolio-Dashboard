@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { IoCloseCircleOutline } from 'react-icons/io5';
 import { MdAddCircleOutline, MdMenuOpen, MdOutlineManageSearch } from 'react-icons/md';
 import { NavLink, useLocation } from 'react-router-dom';
+import { getToken } from '../../helper/sessionHelper';
 
 const Sidebar = () => {
 
@@ -14,8 +15,6 @@ const Sidebar = () => {
     };
 
     const { pathname } = useLocation();
-    console.log(pathname);
-
     return (
         <>
             <aside

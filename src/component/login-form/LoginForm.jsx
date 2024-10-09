@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'; // Assuming you're using react-router for navigation
 import toast, { Toaster } from 'react-hot-toast';
-import   { adminLoginApi }  from '../../apiRequest/loginApi';
+import { adminLoginApi } from './../../apiRequest/admin-api/loginApi';
 
 function LoginForm() {
     const [showPassword, setShowPassword] = useState(false);

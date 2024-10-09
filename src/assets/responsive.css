@@ -1,0 +1,21 @@
+@media (max-width: 480px) {
+    .menuList{
+        display: flex;
+        flex-direction: column;
+        background: #000;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
