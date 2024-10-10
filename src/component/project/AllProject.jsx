@@ -129,7 +129,7 @@ const ProjectTable = () => {
                                 totalProjectDataList && totalProjectDataList.map((item, i) => (
                                     <tr key={i} className="hover:bg-gray-100 text-center cursor-pointer">
                                         <td className="py-3 px-4 border-b">{i + 1}</td>
-                                        <td className="py-3 px-4 border-b">{item.name.slice(0,15)}....</td>
+                                        <td className="py-3 px-4 border-b">{item.name.slice(0,10)}...</td>
                                         <td className="py-3 px-4 border-b">
                                             <img
                                                 src={item.img}
@@ -139,7 +139,7 @@ const ProjectTable = () => {
                                         </td>
                                         <td className="py-3 px-4 border-b text-blue-500">
                                             <a href={item.url} target="_blank" rel="noopener noreferrer">
-                                                {item.url.slice(0, 15)}....
+                                                {item.url.slice(0, 15)}...
                                             </a>
                                         </td>
                                         <td className="py-3 px-4 border-b">{item.documentation.slice(0,10)}...</td>
