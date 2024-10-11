@@ -28,6 +28,7 @@ if (token) {
 
 // Define routes based on role using if-else structure
 let routes = [];
+let routes2 = [] ;
 
 if ( token &&  (role === "admin")) {
     routes = [
@@ -69,10 +70,10 @@ if ( token &&  (role === "admin")) {
         }
     ];
 } else {
-    routes = [
+    routes2 = [
         {
-            path : "/dashboard",
-            element : <LoginFormPage></LoginFormPage>
+            path: "/login", // Catch-all route for unauthorized access
+            element: <LoginFormPage />,
         }
     ];
 }
@@ -91,4 +92,9 @@ export const route = createBrowserRouter([
         element: <Layout />,
         children: routes, // Use the routes array based on the role
     },
+    {
+        path : "",
+        element : <LoginFormPage></LoginFormPage>,
+        children : routes2, // Use the routes2 array for unauthorized access
+    }
 ]);
