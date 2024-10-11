@@ -49,8 +49,8 @@ const AdminNavbar = () => {
               <ul
                 tabIndex={0}
                 className={`menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow absolute bg-white
-                  ${toggle ? "block opacity-100 transform translate-y-0 transition-opacity duration-500 ease-in-out"
-                    : "hidden opacity-0 transform -translate-y-4 transition-opacity duration-500 ease-in-out"}
+                  ${toggle ? "block opacity-100 transform translate-y-0 transition-opacity duration-1000 ease-in-out"
+                    : "hidden opacity-0 transform -translate-y-4 transition-opacity duration-1000  ease-in-out"}
                 `}
               >
                 <li>

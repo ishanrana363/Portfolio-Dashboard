@@ -12,6 +12,7 @@ import ServiceCreatePage from "../pages/service-page/ServiceCreatePage";
 import AllServicePage from "../pages/service-page/AllServicePage";
 import ServiceUpdatePage from "../pages/service-page/ServiceUpdatePage";
 import { jwtDecode } from "jwt-decode";
+import AdminProfilePage from "../pages/admin-profile-page/AdminProfilePage";
 
 const token = localStorage.getItem("token");
 let role = ""; // Default value
@@ -67,6 +68,10 @@ if ( token &&  (role === "admin")) {
         {
             path: "service-update/:id",
             element: <ServiceUpdatePage />,
+        },
+        {
+            path : "profile",
+            element : <AdminProfilePage></AdminProfilePage>
         }
     ];
 } else {
