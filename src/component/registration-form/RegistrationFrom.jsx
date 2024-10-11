@@ -5,9 +5,13 @@ import { Toaster } from 'react-hot-toast';
 import { uploadImg } from '../../upload-img/UploadImg';
 import Swal from 'sweetalert2';
 import { createAccount } from './../../apiRequest/admin-api/adminApi';
+import { useState } from 'react';
+import SpinnerLoader from '../full-screen-loder/Spinner';
 
 function RegistrationForm() {
+    const [loader,setLoader] = useState(false);
 
+    const navigate = useNavigate();
     // Framer Motion animation variants for the form zoom-in effect
     const formVariant = {
         hidden: { opacity: 0, scale: 0.8 },
@@ -41,8 +45,9 @@ function RegistrationForm() {
             ImageUrl = await uploadImg(img);
         }
         const payload = { name, email, password, img: ImageUrl };
-
+        setLoader(true);
         let res = await createAccount(payload);
+        setLoader(false);
         if (res) {
             Swal.fire({
                 position: "top-end",
@@ -147,7 +152,7 @@ function RegistrationForm() {
                         <p className="text-center text-gray-500">
                             Already have an account?{' '}
                             <Link
-                                to="/"
+                                to="/login"
                                 className="text-indigo-500 hover:text-indigo-600 transition duration-300"
                             >
                                 Login
@@ -155,7 +160,13 @@ function RegistrationForm() {
                         </p>
                     </div>
                 </motion.form>
-
+                {
+                    loader && (
+                        <div>
+                            <SpinnerLoader></SpinnerLoader>
+                        </div>
+                    )
+                }
             </div>
             <Toaster position="top-center" reverseOrder={false} />
         </>

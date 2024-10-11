@@ -72,8 +72,8 @@ if ( token &&  (role === "admin")) {
 } else {
     routes2 = [
         {
-            path: "/login", // Catch-all route for unauthorized access
-            element: <LoginFormPage />,
+            path: "", // Catch-all route for unauthorized access
+            element: <div>You have not permission in this routes </div> ,
         }
     ];
 }
@@ -92,9 +92,5 @@ export const route = createBrowserRouter([
         element: <Layout />,
         children: routes, // Use the routes array based on the role
     },
-    {
-        path : "",
-        element : <LoginFormPage></LoginFormPage>,
-        children : routes2, // Use the routes2 array for unauthorized access
-    }
+    
 ]);

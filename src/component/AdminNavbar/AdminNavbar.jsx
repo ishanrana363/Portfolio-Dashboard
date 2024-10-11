@@ -31,7 +31,7 @@ const AdminNavbar = () => {
       <div className="">
         <div className="navbar bg-navBar">
           <div className="flex-1">
-            <NavLink to="/" className="btn btn-ghost text-3xl font-mono font-bold">
+            <NavLink to="" className="btn btn-ghost text-3xl font-mono font-bold">
               Portfolio
             </NavLink>
           </div>
