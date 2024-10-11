@@ -7,6 +7,7 @@ import serviceStore from "../../apiRequest/service-api/serviceStore";
 import ReactPaginate from "react-paginate";
 import { serviceDeleteApi } from "../../apiRequest/service-api/serviceApi";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 
 
 const AllService = () => {
@@ -75,6 +76,9 @@ const AllService = () => {
 
     return (
         <>
+        <Helmet>
+            <title>Dashboard | All Service</title>
+        </Helmet>
             <div className="p-4">
                 <h1 className='text-center text-lg font-semibold mb-6'>Total Project: {totalServiceLength}</h1>
                 <div className="flex justify-between items-center mb-4">

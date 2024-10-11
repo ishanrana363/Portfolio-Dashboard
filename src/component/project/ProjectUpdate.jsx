@@ -6,6 +6,7 @@ import { uploadImg } from "../../upload-img/UploadImg";
 import { updateAlert } from "../../helper/updateAlert";
 import { projectUpdateApi } from "../../apiRequest/project-api/projectApi";
 import toast, { Toaster } from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 
 
 const ProjectUpdate = () => {
@@ -74,6 +75,9 @@ const ProjectUpdate = () => {
     }
     return (
         <>
+        <Helmet>
+            <title> Dashboard | Update Project</title>
+        </Helmet>
             <div>
                 <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg animate-zoom-in">
                     <h2 className="text-2xl font-semibold text-center mb-4"> ({singleProjectData.name}) Update Project</h2>

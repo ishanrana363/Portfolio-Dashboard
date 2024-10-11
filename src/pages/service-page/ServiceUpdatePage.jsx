@@ -1,4 +1,3 @@
-import React from 'react'
 import ServiceUpdateForm from '../../component/service/ServiceUpdateForm'
 
 const ServiceUpdatePage = () => {

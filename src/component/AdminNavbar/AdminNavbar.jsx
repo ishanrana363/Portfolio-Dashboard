@@ -3,6 +3,7 @@ import adminStore from "../../apiRequest/admin-api/adminStore";
 import { useState } from "react";
 import SpinnerLoader from "../full-screen-loder/Spinner";
 import { Link, NavLink } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const AdminNavbar = () => {
   const { adminProfileDataApi, adminProfileData } = adminStore();
@@ -28,6 +29,9 @@ const AdminNavbar = () => {
 
   return (
     <>
+    <Helmet>
+      <title>Dashboard | Navbar</title>
+    </Helmet>
       <div className="">
         <div className="navbar bg-navBar">
           <div className="flex-1">

@@ -6,6 +6,7 @@ import FullScreenLoader from "../full-screen-loder/FullScreenLoder";
 import SpinnerLoader from "../full-screen-loder/Spinner";
 import { useNavigate } from "react-router-dom";
 import AwesomeSVG from "../full-screen-loder/AwesomeSVG";
+import { Helmet } from "react-helmet-async";
 
 const ProjectCreate = () => {
     const [loader, setLoader] = useState(false);
@@ -49,6 +50,9 @@ const ProjectCreate = () => {
 
     return (
         <>
+        <Helmet>
+            <title>Dashboard | Project Create </title>
+        </Helmet>
             <div className="relative">
                 <div className="flex items-center justify-center bg-gray-100 min-h-screen">
                     <div className="w-full max-w-lg bg-white p-8 rounded-lg shadow-md">

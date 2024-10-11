@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { createAccount } from './../../apiRequest/admin-api/adminApi';
 import { useState } from 'react';
 import SpinnerLoader from '../full-screen-loder/Spinner';
+import { Helmet } from 'react-helmet-async';
 
 function RegistrationForm() {
     const [loader,setLoader] = useState(false);
@@ -71,6 +72,9 @@ function RegistrationForm() {
 
     return (
         <>
+        <Helmet>
+            <title> Dashboard | Registration </title>
+        </Helmet>
             <div className="flex justify-center items-center h-screen bg-sideBarColor ">
                 {/* Animate the form container with zoom-in effect */}
                 <motion.form
@@ -152,7 +156,7 @@ function RegistrationForm() {
                         <p className="text-center text-gray-500">
                             Already have an account?{' '}
                             <Link
-                                to="/login"
+                                to="/"
                                 className="text-indigo-500 hover:text-indigo-600 transition duration-300"
                             >
                                 Login

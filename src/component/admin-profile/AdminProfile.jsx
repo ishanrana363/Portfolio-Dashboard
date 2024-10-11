@@ -4,6 +4,7 @@ import SpinnerLoader from '../full-screen-loder/Spinner';
 import { uploadImg } from '../../upload-img/UploadImg';
 import { adminProfileUpdateApi } from '../../apiRequest/admin-api/adminApi';
 import toast, { Toaster } from 'react-hot-toast';
+import { Helmet } from 'react-helmet-async';
 
 const AdminProfile = () => {
     const [loader, setLoader] = useState(false);
@@ -54,6 +55,10 @@ const AdminProfile = () => {
     }
     return (
         <div>
+            <Helmet>
+                <title>Admin Profile</title>
+                <meta name="description" content="Admin Profile" />
+            </Helmet>
             <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded-md">
                 <h2 className="text-2xl font-semibold text-center mb-6">({adminProfileData?.name}) Profile </h2>
                 <form onSubmit={updateProfile} >

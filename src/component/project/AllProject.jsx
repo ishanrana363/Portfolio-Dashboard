@@ -7,6 +7,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { deleteAlert } from '../../helper/deleteAlert';
 import { projectDeleteApi } from '../../apiRequest/project-api/projectApi';
 import toast from 'react-hot-toast';
+import { Helmet } from 'react-helmet-async';
 
 const ProjectTable = () => {
     const navigate = useNavigate();
@@ -74,6 +75,9 @@ const ProjectTable = () => {
 
     return (
         <>
+        <Helmet>
+            <title>Dashboard | All Projects</title>
+        </Helmet>
             <div className="p-4">
                 <h1 className='text-center text-lg font-semibold mb-6'>Total Project: {totalProjectLength}</h1>
                 <div className="flex justify-between items-center mb-4">

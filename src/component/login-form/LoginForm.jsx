@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import SpinnerLoader from './../full-screen-loder/Spinner';
+import { Helmet } from 'react-helmet-async';
 
 function LoginForm() {
     const [showPassword, setShowPassword] = useState(false);
@@ -39,6 +40,9 @@ function LoginForm() {
 
     return (
         <>
+        <Helmet>
+            <title>Login</title>
+        </Helmet>
             <motion.div
                 className="flex justify-center bg-sideBarColor items-center h-screen"
                 initial={{ scale: 0.5 }} // Starts smaller (zoomed out)

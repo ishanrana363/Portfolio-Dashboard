@@ -3,6 +3,7 @@ import { createSkillApi } from "../../apiRequest/skill-api/skillApi";
 import { uploadImg } from "../../upload-img/UploadImg";
 import toast, { Toaster } from "react-hot-toast";
 import SpinnerLoader from "../full-screen-loder/Spinner";
+import { Helmet } from "react-helmet-async";
 
 const SkillCreate = () => {
     const [loader, setLoader] = useState(false);
@@ -34,6 +35,9 @@ const SkillCreate = () => {
     };
     return (
         <>
+        <Helmet>
+            <title>Dashboard | Skill Create </title>
+        </Helmet>
             <div className=" my-16 " >
                 <div className="flex justify-center  items-center animate-zoom-in">
                     <div className="w-full max-w-md bg-gray-300 shadow-lg rounded-lg p-6">

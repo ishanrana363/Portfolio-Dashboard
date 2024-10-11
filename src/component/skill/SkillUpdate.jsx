@@ -6,6 +6,7 @@ import SpinnerLoader from "../full-screen-loder/Spinner";
 import skillStore from "../../apiRequest/skill-api/skillStore";
 import { useNavigate, useParams } from "react-router-dom";
 import { updateAlert } from "../../helper/updateAlert";
+import { Helmet } from "react-helmet-async";
 
 const SkillUpdate = () => {
     const { totalSkillDataApi, singleSkillDataApi, singleSkillData } = skillStore();
@@ -15,7 +16,9 @@ const SkillUpdate = () => {
 
     useEffect(() => {
         (async () => {
-            await singleSkillDataApi(id)
+            setLoader(true);
+            await singleSkillDataApi(id);
+            setLoader(false);
         })()
     }, [id])
     const [loader, setLoader] = useState(false);
@@ -58,6 +61,9 @@ const SkillUpdate = () => {
     };
     return (
         <>
+        <Helmet>
+            <title>Dashboard | Update Skill</title>
+        </Helmet>
             <div className=" my-16 " >
                 <div className="flex justify-center  items-center animate-zoom-in">
                     <div className="w-full max-w-md bg-gray-300 shadow-lg rounded-lg p-6">

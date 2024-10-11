@@ -7,6 +7,7 @@ import ReactPaginate from 'react-paginate';
 import SpinnerLoader from '../full-screen-loder/Spinner';
 import { deleteSkillApi } from '../../apiRequest/skill-api/skillApi';
 import toast from 'react-hot-toast';
+import { Helmet } from 'react-helmet-async';
 
 const AllSkill = () => {
     const navigate = useNavigate();
@@ -73,6 +74,9 @@ const AllSkill = () => {
     };
     return (
         <div>
+            <Helmet>
+                <title>Dashboard | All Skill</title>
+            </Helmet>
             <>
                 <div className="p-4">
                     <h1 className='text-center text-lg font-semibold mb-2'>Total Skill: {totalSkillLength}</h1>
