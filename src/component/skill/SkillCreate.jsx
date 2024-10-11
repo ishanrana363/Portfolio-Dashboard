@@ -4,9 +4,11 @@ import { uploadImg } from "../../upload-img/UploadImg";
 import toast, { Toaster } from "react-hot-toast";
 import SpinnerLoader from "../full-screen-loder/Spinner";
 import { Helmet } from "react-helmet-async";
+import skillStore from "../../apiRequest/skill-api/skillStore";
 
 const SkillCreate = () => {
     const [loader, setLoader] = useState(false);
+    const {totalSkillDataApi} = skillStore();
     const handelSubmit = async (e) => {
         e.preventDefault();
         const name = e.target.name.value;
@@ -26,6 +28,9 @@ const SkillCreate = () => {
         const res = await createSkillApi(payload);
         setLoader(false)
         if (res) {
+            setLoader(true);
+            await totalSkillDataApi();
+            setLoader(false);
             toast.success("Skill created successfully")
         }else{
             toast.error("Failed to create skill")

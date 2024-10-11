@@ -5,8 +5,10 @@ import { serviceCreateApi } from '../../apiRequest/service-api/serviceApi';
 import toast, { Toaster } from 'react-hot-toast';
 import SpinnerLoader from '../full-screen-loder/Spinner';
 import { useNavigate } from 'react-router-dom';
+import serviceStore from '../../apiRequest/service-api/serviceStore';
 
 const ServiceCreate =  () => {
+    const {totalServiceDataApi} = serviceStore();
     const navigate = useNavigate();
     const [loader, setLoader] = React.useState(false);
     const handleSubmitForm = async(e) => {
@@ -27,6 +29,9 @@ const ServiceCreate =  () => {
         const res = await serviceCreateApi(payload);
         setLoader(false);
         if (res) {
+            setLoader(true);
+            await totalServiceDataApi();
+            setLoader(false);
             navigate('/dashboard/all-services');
             toast.success("Service created successfully");
         } else {
