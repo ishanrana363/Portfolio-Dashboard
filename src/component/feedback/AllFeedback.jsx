@@ -8,6 +8,7 @@ import { serviceDeleteApi } from "../../apiRequest/service-api/serviceApi";
 import toast from "react-hot-toast";
 import { Helmet } from "react-helmet-async";
 import feedbackStore from "../../apiRequest/feedback-api/feedbackStore";
+import { feedbackDeleteApi } from "../../apiRequest/feedback-api/feedbackApi";
 
 
 const AllFeedback = () => {
@@ -57,11 +58,11 @@ const AllFeedback = () => {
         setLoader(false);
     };
 
-    const serviceDelete = async (id) => {
+    const feedbackDelete = async (id) => {
         let resp = await deleteAlert();
         if (resp.isConfirmed) {
             setLoader(true);
-            let res = await serviceDeleteApi(id);
+            let res = await feedbackDeleteApi(id);
             setLoader(false);
             if (res) {
                 setLoader(true);
@@ -80,7 +81,7 @@ const AllFeedback = () => {
             <title>Dashboard | All Feedback</title>
         </Helmet>
             <div className="p-4">
-                <h1 className='text-center text-lg font-semibold mb-6'>Total Project: {totalFeedbackLength}</h1>
+                <h1 className='text-center text-lg font-semibold mb-6'>Total Feedback: {totalFeedbackLength}</h1>
                 <div className="flex justify-between items-center mb-4">
                     <div className="flex items-center">
                         <select
@@ -148,12 +149,12 @@ const AllFeedback = () => {
                                         <td className="py-3 px-4 border-b">{moment(item.createdAt).format("MMMM Do YYYY")}</td>
                                         <td className="py-3 px-4 border-b">
                                             <div className="flex justify-center space-x-2">
-                                                <Link to={`/dashboard/service-update/${item["_id"]}`}>
+                                                <Link to={`/dashboard/feedback-update/${item["_id"]}`}>
                                                     <button className="bg-teal-500 text-white px-3 py-1 rounded hover:bg-teal-600">
                                                         Edit
                                                     </button>
                                                 </Link>
-                                                <button onClick={()=>serviceDelete(item["_id"])} className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
+                                                <button onClick={()=>feedbackDelete(item["_id"])} className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
                                                     Delete
                                                 </button>
                                             </div>
