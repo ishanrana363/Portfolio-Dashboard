@@ -7,11 +7,11 @@ import SpinnerLoader from '../full-screen-loder/Spinner';
 import { useNavigate } from 'react-router-dom';
 import serviceStore from '../../apiRequest/service-api/serviceStore';
 
-const ServiceCreate =  () => {
-    const {totalServiceDataApi} = serviceStore();
+const ServiceCreate = () => {
+    const { totalServiceDataApi } = serviceStore();
     const navigate = useNavigate();
     const [loader, setLoader] = React.useState(false);
-    const handleSubmitForm = async(e) => {
+    const handleSubmitForm = async (e) => {
         e.preventDefault()
         const name = e.target.name.value;
         const img = e.target.img.files[0];
@@ -30,7 +30,7 @@ const ServiceCreate =  () => {
         setLoader(false);
         if (res) {
             setLoader(true);
-            await totalServiceDataApi();
+            await totalServiceDataApi(1,5,0);
             setLoader(false);
             navigate('/dashboard/all-services');
             toast.success("Service created successfully");

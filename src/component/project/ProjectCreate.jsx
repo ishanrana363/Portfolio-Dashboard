@@ -2,13 +2,13 @@ import toast, { Toaster } from "react-hot-toast";
 import { createProjectApi } from "../../apiRequest/project-api/projectApi";
 import { uploadImg } from "../../upload-img/UploadImg";
 import { useState } from "react";
-import FullScreenLoader from "../full-screen-loder/FullScreenLoder";
 import SpinnerLoader from "../full-screen-loder/Spinner";
 import { useNavigate } from "react-router-dom";
-import AwesomeSVG from "../full-screen-loder/AwesomeSVG";
 import { Helmet } from "react-helmet-async";
+import projectStore from "../../apiRequest/project-api/projectStore";
 
 const ProjectCreate = () => {
+    const {totalProjectDataApi} = projectStore();
     const [loader, setLoader] = useState(false);
     const navigate = useNavigate();
     const handleFormSubmit = async (e) => {
@@ -39,6 +39,8 @@ const ProjectCreate = () => {
         setLoader(false); // Hide loader after API call completes
 
         if (res) {
+            setLoader(true);
+            await totalProjectDataApi(1,5,0)
             toast.success("Created successfully");
             navigate("/dashboard/all-projects")
         } else {

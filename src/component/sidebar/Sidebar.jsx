@@ -111,6 +111,19 @@ const Sidebar = () => {
                                 </span>
                             </NavLink>
                         </li>
+                        <li>
+                            <NavLink
+                                to="/dashboard/feedback-create"
+                                className={`${pathname==="/dashboard/feedback-create" ? ` bg-[#55679C] text-white ` : `bg-white text-[#4040f6]` } px-3 flex py-2 justify-start items-center w-full
+                                hover:shadow-lg hover:shadow-indigo-500/300 hover:bg-indigo-500/100 rounded-lg hover:text-white text-lg my-6 `}
+                                activeClassName="bg-indigo-900 shadow-lg"
+                            >
+                                <MdOutlineManageSearch className='font-bold text-xl' />
+                                <span className={`${isSidebarOpen ? 'block' : 'hidden'}`}>
+                                    <p className='font-bold ml-3 '>Feedback Create </p>
+                                </span>
+                            </NavLink>
+                        </li>
                     </ul>
                 </nav>
             </aside>

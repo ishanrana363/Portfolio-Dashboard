@@ -29,7 +29,7 @@ const SkillCreate = () => {
         setLoader(false)
         if (res) {
             setLoader(true);
-            await totalSkillDataApi();
+            await totalSkillDataApi(1,5,0);
             setLoader(false);
             toast.success("Skill created successfully")
         }else{

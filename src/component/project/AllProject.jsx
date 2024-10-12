@@ -14,7 +14,7 @@ const ProjectTable = () => {
     const { totalProjectDataApi, totalProjectDataList, totalProjectLength } = projectStore();
     const [loader, setLoader] = useState(false);
     const [perPage, setPerPage] = useState(5);
-    const [searchValue, setSearchValue] = useState('');
+    const [searchValue, setSearchValue] = useState(0);
     const { id } = useParams();
 
     useEffect(() => {

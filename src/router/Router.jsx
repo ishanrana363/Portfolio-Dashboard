@@ -13,10 +13,11 @@ import AllServicePage from "../pages/service-page/AllServicePage";
 import ServiceUpdatePage from "../pages/service-page/ServiceUpdatePage";
 import { jwtDecode } from "jwt-decode";
 import AdminProfilePage from "../pages/admin-profile-page/AdminProfilePage";
+import FeedbackCreatePage from "../pages/feedback-page/FeedbackCreatePage";
 
 const token = localStorage.getItem("token");
-let role = ""; // Default value
 
+let role = ""; 
 if (token) {
     try {
         const decodedToken = jwtDecode(token); // Decode the token
@@ -72,6 +73,10 @@ if ( token &&  (role === "admin")) {
         {
             path : "profile",
             element : <AdminProfilePage></AdminProfilePage>
+        },
+        {
+            path : "feedback-create",
+            element : <FeedbackCreatePage></FeedbackCreatePage>
         }
     ];
 } else {
