@@ -27,3 +27,13 @@ export const feedbackDeleteApi = async (id)=>{
         return false;
     }
 };
+
+
+export const feedbackUpdateApi = async (id,payload)=>{
+    let res = await useAxios.put(`/feedback-update/${id}`, payload,config);
+    if (res.data.status === "success") {
+        return res.data.status
+    } else {
+        return false;
+    }
+};

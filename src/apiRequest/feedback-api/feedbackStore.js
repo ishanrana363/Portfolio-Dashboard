@@ -30,7 +30,7 @@ const feedbackStore = create((set) => ({
     },
     singleFeedbackData : [],
     singleFeedbackDataApi: async (id) => {
-        let res = await useAxios.get(`/sigle-project/${id}`, config);
+        let res = await useAxios.get(`/single-feedback/${id}`);
         if (res.data["status"] === "success") {
             set({ singleFeedbackData: res.data["data"]});
         } else {
