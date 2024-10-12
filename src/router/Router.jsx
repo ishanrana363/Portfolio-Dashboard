@@ -14,6 +14,7 @@ import ServiceUpdatePage from "../pages/service-page/ServiceUpdatePage";
 import { jwtDecode } from "jwt-decode";
 import AdminProfilePage from "../pages/admin-profile-page/AdminProfilePage";
 import FeedbackCreatePage from "../pages/feedback-page/FeedbackCreatePage";
+import AllFeedbackPage from "../pages/feedback-page/AllFeedbackPage";
 
 const token = localStorage.getItem("token");
 
@@ -77,6 +78,10 @@ if ( token &&  (role === "admin")) {
         {
             path : "feedback-create",
             element : <FeedbackCreatePage></FeedbackCreatePage>
+        },
+        {
+            path : "all-feedback",
+            element : <AllFeedbackPage></AllFeedbackPage>
         }
     ];
 } else {
