@@ -2,7 +2,7 @@
 import { Helmet } from 'react-helmet-async';
 import blogStore from '../../apiRequest/blog-api/blogStore';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { updateAlert } from './../../helper/updateAlert';
 import { updateBlogApi } from '../../apiRequest/blog-api/blogApi';
 import Swal from 'sweetalert2';
@@ -12,6 +12,7 @@ const UpdateBlog = () => {
   const { id } = useParams();
   const { totalBlogDataApi, singleBlogDataApi, singleBlogData } = blogStore();
   const [loader, setLoader] = useState(false);
+  const navigate = useNavigate();
   useEffect(() => {
     (async () => {
       setLoader(true);
@@ -40,6 +41,7 @@ const UpdateBlog = () => {
           text: "Your Blog has been update successfully.",
           icon: "success"
         });
+        navigate("/dashboard/all-blog");
         await totalBlogDataApi();
       } else {
         toast.error("Blog update failed")
