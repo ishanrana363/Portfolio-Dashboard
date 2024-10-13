@@ -36,16 +36,11 @@ const BlogCreate = () => {
       toast.error("Please enter a valid URL");
       return;
     }
-
-    // Show confirmation alert on submit
     const resp = await createAlert();
-
-    // Proceed with API call only if confirmed
     if (resp.isConfirmed) {
       setLoading(true);
       let res = await createBlogApi(formData);
       setLoading(false);
-
       if (res) {
         Swal.fire({
           title: "Created!",
@@ -142,3 +137,5 @@ const BlogCreate = () => {
 }
 
 export default BlogCreate;
+
+
