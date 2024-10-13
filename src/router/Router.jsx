@@ -16,6 +16,9 @@ import AdminProfilePage from "../pages/admin-profile-page/AdminProfilePage";
 import FeedbackCreatePage from "../pages/feedback-page/FeedbackCreatePage";
 import AllFeedbackPage from "../pages/feedback-page/AllFeedbackPage";
 import FeedbackUpdatePage from "../pages/feedback-page/FeedbackUpdatePage";
+import BlogCreatePage from './../pages/blog-page/BlogCreatePage';
+import AllBlogPage from './../pages/blog-page/AllBlogPage';
+import BlogUpdatePage from './../pages/blog-page/BlogUpdatePage';
 
 const token = localStorage.getItem("token");
 
@@ -87,30 +90,39 @@ if ( token &&  (role === "admin")) {
         {
             path : "feedback-update/:id",
             element : <FeedbackUpdatePage></FeedbackUpdatePage>
+        },
+        {
+            path : "blog-create",
+            element : <BlogCreatePage></BlogCreatePage>
+        },
+        {
+            path : "all-blog",
+            element : <AllBlogPage></AllBlogPage>
+        },
+        {
+            path : "blog-update/:id",
+            element : <BlogUpdatePage></BlogUpdatePage>
         }
     ];
 } else {
     routes2 = [
         {
-            path: "", // Catch-all route for unauthorized access
-            element: <div>You have not permission in this routes </div> ,
-        }
+            path: "/registration",
+            element: <RegistrationForm />,
+        },
     ];
 }
 
 export const route = createBrowserRouter([
     {
-        path: "/",
-        element: <LoginFormPage />,
-    },
-    {
-        path: "/registration",
-        element: <RegistrationForm />,
-    },
-    {
         path: "/dashboard",
         element: <Layout />,
         children: routes, // Use the routes array based on the role
     },
+    {
+        path : "/",
+        element : <LoginFormPage></LoginFormPage>,
+        children : routes2
+    }
     
 ]);
