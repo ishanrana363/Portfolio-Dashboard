@@ -22,7 +22,7 @@ const Sidebar = () => {
             className={`bg-sideBarColor text-white transition-all duration-300 ${isSidebarOpen ? 'w-64' : 'w-14'}`}>
             <div className="flex justify-between items-center p-4 gap-8">
                 <div className={`text-2xl font-bold ${!isSidebarOpen && 'hidden'}`}>
-                    <NavLink to={"/"}><p>Portfolio</p></NavLink>
+                    <NavLink to={"/dashboard"}><p>Portfolio</p></NavLink>
                 </div>
                 <button onClick={toggleSidebar} className="text-white focus:outline-none">
                     {isSidebarOpen ? <IoCloseCircleOutline className='text-4xl' /> : <MdMenuOpen className='text-3xl' />}

@@ -19,6 +19,7 @@ import FeedbackUpdatePage from "../pages/feedback-page/FeedbackUpdatePage";
 import BlogCreatePage from './../pages/blog-page/BlogCreatePage';
 import AllBlogPage from './../pages/blog-page/AllBlogPage';
 import BlogUpdatePage from './../pages/blog-page/BlogUpdatePage';
+import HomePage from "../pages/home-page/HomePage";
 
 const token = localStorage.getItem("token");
 
@@ -39,6 +40,11 @@ let routes2 = [] ;
 
 if ( token &&  (role === "admin")) {
     routes = [
+        {
+            path: "/dashboard",
+            element: <HomePage />,
+
+        },
         {
             path: "project-create",
             element: <ProjectCreatePage />,
