@@ -20,6 +20,7 @@ import BlogCreatePage from './../pages/blog-page/BlogCreatePage';
 import AllBlogPage from './../pages/blog-page/AllBlogPage';
 import BlogUpdatePage from './../pages/blog-page/BlogUpdatePage';
 import HomePage from "../pages/home-page/HomePage";
+import LayoutLogin from "../layout-client/Layout";
 
 const token = localStorage.getItem("token");
 
@@ -113,6 +114,11 @@ if ( token &&  (role === "admin")) {
 } else {
     routes2 = [
         {
+            path: "/",
+            element: <LoginFormPage />,
+
+        },
+        {
             path: "/registration",
             element: <RegistrationForm />,
         },
@@ -127,7 +133,7 @@ export const route = createBrowserRouter([
     },
     {
         path : "/",
-        element : <LoginFormPage></LoginFormPage>,
+        element : <LayoutLogin></LayoutLogin>,
         children : routes2
     }
     
