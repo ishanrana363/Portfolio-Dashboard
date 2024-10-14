@@ -13,7 +13,7 @@ import { deleteBlogApi } from "../../apiRequest/blog-api/blogApi";
 
 const AllBlog = () => {
     const navigate = useNavigate();
-    const { totalBlogDataList, totalBlogDataApi, singleBlogData, singleBlogDataApi, totalBlogLength } = blogStore();
+    const { totalBlogDataList, totalBlogDataApi, totalBlogLength } = blogStore();
     const [loader, setLoader] = useState(false);
     const [perPage, setPerPage] = useState(5);
     const [searchValue, setSearchValue] = useState(0);
@@ -134,12 +134,12 @@ const AllBlog = () => {
                                 totalBlogDataList && totalBlogDataList.map((item, i) => (
                                     <tr key={i} className="hover:bg-gray-100 text-center cursor-pointer">
                                         <td className="py-3 px-4 border-b">{i + 1}</td>
-                                        <td className="py-3 px-4 border-b">{item.name.slice(0, 10)}</td>
+                                        <td className="py-3 px-4 border-b">{item?.name.slice(0, 10)}</td>
                                         <td className="py-3 px-4 border-b ">
                                             <iframe
                                                 width="80"
                                                 height="80"
-                                                src={`https://www.youtube.com/embed/${item.url}`}
+                                                src={`https://www.youtube.com/embed/${item?.url}`}
                                                 title="YouTube video player"
                                                 className="mx-auto"
                                                 frameBorder="0"
@@ -148,10 +148,10 @@ const AllBlog = () => {
                                             ></iframe>
                                         </td>
                                         <td className="py-3 px-4 border-b">
-                                            {item.description.slice(0, 15)}
+                                            {item?.description.slice(0, 15)}
                                         </td>
 
-                                        <td className="py-3 px-4 border-b">{moment(item.createdAt).format("MMMM Do YYYY")}</td>
+                                        <td className="py-3 px-4 border-b">{moment(item?.createdAt).format("MMMM Do YYYY")}</td>
                                         <td className="py-3 px-4 border-b">
                                             <div className="flex justify-center space-x-2">
                                                 <Link to={`/dashboard/blog-update/${item["_id"]}`}>
