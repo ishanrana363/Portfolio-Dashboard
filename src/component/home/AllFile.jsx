@@ -44,7 +44,7 @@ const AllFile = () => {
                         </NavLink>
                     </div>
                     {/* skill create  */}
-                    <NavLink to={"http://localhost:5173/dashboard/skill-create"}>
+                    <NavLink to={"/dashboard/skill-create"}>
                         <div className='w-44 h-32 bg-red-400/35 shadow-2xl rounded-2xl ' >
                             <h1 className='text-center mt-[46px] mx-[42px] absolute ' >Skill Create</h1>
                         </div>

@@ -21,6 +21,9 @@ import AllBlogPage from './../pages/blog-page/AllBlogPage';
 import BlogUpdatePage from './../pages/blog-page/BlogUpdatePage';
 import HomePage from "../pages/home-page/HomePage";
 import LayoutLogin from "../layout-client/Layout";
+import UploadLogoPage from "../pages/logo-page/UploadLogoPage";
+import { path } from "framer-motion/client";
+import AllLogoPage from './../pages/logo-page/AllLogoPage';
 
 const token = localStorage.getItem("token");
 
@@ -109,7 +112,16 @@ if ( token &&  (role === "admin")) {
         {
             path : "blog-update/:id",
             element : <BlogUpdatePage></BlogUpdatePage>
+        },
+        {
+            path: "logo-upload",
+            element: <UploadLogoPage />,
+        },
+        {
+            path : "all-logo",
+            element : <AllLogoPage></AllLogoPage>
         }
+        
     ];
 } else {
     routes2 = [

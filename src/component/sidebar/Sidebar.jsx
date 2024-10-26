@@ -213,6 +213,43 @@ const Sidebar = () => {
                             </ul>
                         )}
                     </li>
+
+                    {/* logo section */}
+                    <li>
+                        <div
+                            className="flex justify-between items-center cursor-pointer px-3 py-2 hover:bg-indigo-500/100 rounded-lg"
+                            onClick={() => handleMenuClick('logo')}
+                        >
+                            <div className="flex items-center">
+                                <MdOutlineManageSearch className='text-xl' />
+                                <span className={`${isSidebarOpen ? 'block' : 'hidden'} ml-3 font-bold`}>logo</span>
+                            </div>
+                            {activeMenu === 'logo' ? <MdExpandLess /> : <MdExpandMore />}
+                        </div>
+
+                        {activeMenu === 'logo' && (
+                            <ul className="pl-6">
+                                <li>
+                                    <NavLink
+                                        to="/dashboard/logo-upload"
+                                        className={`${pathname === "/dashboard/logo-upload" ? `bg-[#55679C] text-white` : `bg-white text-[#4040f6]`} px-3 py-2 flex items-center hover:bg-indigo-500/100 rounded-lg text-lg`}
+                                    >
+                                        <MdAddCircleOutline className='text-xl' />
+                                        <span className={`${isSidebarOpen ? 'ml-3' : 'hidden'} `}>Logo Upload</span>
+                                    </NavLink>
+                                </li>
+                                <li className="mt-2">
+                                    <NavLink
+                                        to="/dashboard/all-logo"
+                                        className={`${pathname === "/dashboard/all-logo" ? `bg-[#55679C] text-white` : `bg-white text-[#4040f6]`} px-3 py-2 flex items-center hover:bg-indigo-500/100 rounded-lg text-lg`}
+                                    >
+                                        <MdAddCircleOutline className='text-xl' />
+                                        <span className={`${isSidebarOpen ? 'ml-3' : 'hidden'}`}>All Logo</span>
+                                    </NavLink>
+                                </li>
+                            </ul>
+                        )}
+                    </li>
                 </ul>
             </nav>
         </aside>
