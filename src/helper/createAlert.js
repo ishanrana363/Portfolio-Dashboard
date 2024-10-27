@@ -1,6 +1,7 @@
 import Swal from "sweetalert2";
 
-export const createAlert = () => {
+// Define your function
+export async function createAlert() {
   return Swal.fire({
     title: "Are you sure?",
     text: "You won't be able to create this!",
@@ -10,4 +11,4 @@ export const createAlert = () => {
     cancelButtonColor: "#d33",
     confirmButtonText: "Yes, create it!"
   });
-};
+}
