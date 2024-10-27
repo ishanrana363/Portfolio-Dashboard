@@ -24,6 +24,7 @@ import LayoutLogin from "../layout-client/Layout";
 import UploadLogoPage from "../pages/logo-page/UploadLogoPage";
 import { path } from "framer-motion/client";
 import AllLogoPage from './../pages/logo-page/AllLogoPage';
+import UpdateLogoPage from './../pages/logo-page/UpdateLogoPage';
 
 const token = localStorage.getItem("token");
 
@@ -120,6 +121,10 @@ if ( token &&  (role === "admin")) {
         {
             path : "all-logo",
             element : <AllLogoPage></AllLogoPage>
+        },
+        {
+            path : "update-logo/:id",
+            element : <UpdateLogoPage></UpdateLogoPage>
         }
         
     ];
