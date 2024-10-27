@@ -18,7 +18,16 @@ const logoStore =  create((set)=>({
         } catch (error) {
             console.error('Error fetching logo data: ', error);
         }
-    }
+    },
+    singleLogoData: [],
+    singleLogoDataApi: async (id) => {
+        let res = await axiosPublic.get(`/single-logo/${id}`);
+        if (res.data["status"] === "success") {
+            set({ singleLogoData: res.data["data"]});
+        } else {
+            return false;
+        }
+    },
 
 }));
 

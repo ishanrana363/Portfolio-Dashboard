@@ -28,3 +28,12 @@ export const logoDeleteApi = async (id)=>{
         return false;
     }
 };
+
+export const logoUpdateApi = async (id, payload)=>{
+    let res = await axiosPublic.put(`/logo-update/${id}`, payload,config);
+    if (res.data.status === "success") {
+        return res.data.status
+    } else {
+        return false;
+    }
+};
