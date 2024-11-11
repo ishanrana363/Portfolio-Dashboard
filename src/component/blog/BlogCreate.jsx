@@ -5,55 +5,70 @@ import { createBlogApi } from '../../apiRequest/blog-api/blogApi';
 import Swal from 'sweetalert2';
 import toast, { Toaster } from 'react-hot-toast';
 import SpinnerLoader from '../full-screen-loder/Spinner';
+import { uploadImg } from './../../upload-img/UploadImg';
 
 const BlogCreate = () => {
   window.scrollTo(0, 0);
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    url: '',
-    description: '',
-  });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
 
-  const validateURL = (url) => {
-    const urlPattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-      '((([a-z0-9][-a-z0-9]*[a-z0-9])?\\.)+[a-z]{2,}|'+ // domain name
-      'localhost|\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}|'+ // IP address
-      '\\[?[a-f0-9]*:[a-f0-9:%.~+\\/?=]+\\])'+ // IPv6
-      '(\\:[0-9]+)?(\\/[-a-z0-9+&@#\/%?=~_|!:,.;]*[a-z0-9+&@#\/%=~_|])?$','i'); // path
-    return !!urlPattern.test(url);
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const name = e.target.name.value;
+    const img = e.target.img.files[0];
+    const url = e.target.url.value;
+    const description = e.target.description.value;
 
-    // URL validation
-    if (!validateURL(formData.url)) {
-      toast.error("Please enter a valid URL");
-      return;
+    let imgUrl = "";
+
+    if (img?.name) {
+      imgUrl = ""
     }
-    const resp = await createAlert();
-    if (resp.isConfirmed) {
-      setLoading(true);
-      let res = await createBlogApi(formData);
-      setLoading(false);
-      if (res) {
-        Swal.fire({
-          title: "Created!",
-          text: "Your Blog has been created successfully.",
-          icon: "success"
-        });
-        
-        setFormData({ name: '', url: '', description: '' });
-      } else {
-        toast.error("Blog was not created successfully");
+    imgUrl = await await uploadImg(img);
+
+    const payload = {
+      name,
+      img: imgUrl,
+      url,
+      description,
+    };
+
+    if (!name) {
+      toast.error("Enter blog name");
+      return;
+    } else if (!img) {
+      toast.error("Select blog image");
+      return;
+    } else if (!url) {
+      toast.error("Enter blog url");
+      return;
+    }else{
+      let resp = await createAlert();
+      if (resp.isConfirmed) {
+        setLoading(true);
+        let res = await createBlogApi(payload);
+        setLoading(false);
+        if (res) {
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: "Blog create successfully",
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }else{
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Failed to create blog",
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
       }
     }
+
   };
 
   return (
@@ -76,12 +91,23 @@ const BlogCreate = () => {
             <input
               type="text"
               id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Enter blog name"
-              required
+
+            />
+          </div>
+          {/* img */}
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="img">
+              Img
+            </label>
+            <input
+              type="file"
+              id="img"
+              name='img'
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="Enter blog name"
+
             />
           </div>
 
@@ -94,11 +120,9 @@ const BlogCreate = () => {
               type="url"
               id="url"
               name="url"
-              value={formData.url}
-              onChange={handleChange}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Enter a valid URL"
-              required
+
             />
           </div>
 
@@ -110,12 +134,9 @@ const BlogCreate = () => {
             <textarea
               id="description"
               name="description"
-              value={formData.description}
-              onChange={handleChange}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Enter a description"
               rows="4"
-              required
             />
           </div>
 
@@ -132,7 +153,7 @@ const BlogCreate = () => {
         </form>
       </div>
       {loading && <SpinnerLoader />}
-      <Toaster position='top-center'/>
+      <Toaster position='top-center' />
     </div>
   );
 }

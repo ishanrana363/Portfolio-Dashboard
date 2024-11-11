@@ -13,6 +13,7 @@ const config = {
 
 export const createBlogApi = async (payload)=>{
     let res = await axiosPublic.post(`/blog-create`,payload,config);
+    console.log(res);
     if (res.data.status === "success") {
         return res.data.status
     } else {

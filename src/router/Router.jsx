@@ -25,6 +25,7 @@ import UpdateLogoPage from './../pages/logo-page/UpdateLogoPage';
 import EmailSendFromPage from "../pages/password-reset-page/EmailSendFromPage";
 import EmailVerifyfFromPage from "../pages/password-reset-page/EmailVerifyfFromPage";
 import ForgetPasswordFormPage from "../pages/password-reset-page/ForgetPasswordFormPage";
+import VideoUrl from "../component/VideoUrl";
 
 
 
@@ -51,6 +52,10 @@ export const route = createBrowserRouter([
     {
         path : "/forget-password",
         element : <ForgetPasswordFormPage></ForgetPasswordFormPage>
+    },
+    {
+        path:"videos",
+        element : <VideoUrl></VideoUrl>
     },
     {
         path: "/dashboard",
