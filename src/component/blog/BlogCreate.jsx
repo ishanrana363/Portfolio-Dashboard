@@ -7,6 +7,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import SpinnerLoader from '../full-screen-loder/Spinner';
 
 const BlogCreate = () => {
+  window.scrollTo(0, 0);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',

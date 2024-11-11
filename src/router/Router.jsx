@@ -20,15 +20,15 @@ import BlogCreatePage from './../pages/blog-page/BlogCreatePage';
 import AllBlogPage from './../pages/blog-page/AllBlogPage';
 import BlogUpdatePage from './../pages/blog-page/BlogUpdatePage';
 import HomePage from "../pages/home-page/HomePage";
-import LayoutLogin from "../layout-client/Layout";
 import UploadLogoPage from "../pages/logo-page/UploadLogoPage";
-import { path } from "framer-motion/client";
 import AllLogoPage from './../pages/logo-page/AllLogoPage';
 import UpdateLogoPage from './../pages/logo-page/UpdateLogoPage';
+import EmailSendFromPage from "../pages/password-reset-page/EmailSendFromPage";
+import EmailVerifyfFromPage from "../pages/password-reset-page/EmailVerifyfFromPage";
 
 const token = localStorage.getItem("token");
 
-let role = ""; 
+let role = "";
 if (token) {
     try {
         const decodedToken = jwtDecode(token); // Decode the token
@@ -39,119 +39,112 @@ if (token) {
     }
 }
 
-// Define routes based on role using if-else structure
-let routes = [];
-let routes2 = [] ;
-
-if ( token &&  (role === "admin")) {
-    routes = [
-        {
-            path: "/dashboard",
-            element: <HomePage />,
-
-        },
-        {
-            path: "project-create",
-            element: <ProjectCreatePage />,
-        },
-        {
-            path: "all-projects",
-            element: <AllProjectPage />,
-        },
-        {
-            path: "project-update/:id",
-            element: <ProjectUpdatePage />,
-        },
-        {
-            path: "skill-create",
-            element: <SkillCreatePage />,
-        },
-        {
-            path: "all-skill",
-            element: <AllSkillPage />,
-        },
-        {
-            path: "skill-update/:id",
-            element: <SkillUpdatePage />,
-        },
-        {
-            path: "service-create",
-            element: <ServiceCreatePage />,
-        },
-        {
-            path: "all-services",
-            element: <AllServicePage />,
-        },
-        {
-            path: "service-update/:id",
-            element: <ServiceUpdatePage />,
-        },
-        {
-            path : "profile",
-            element : <AdminProfilePage></AdminProfilePage>
-        },
-        {
-            path : "feedback-create",
-            element : <FeedbackCreatePage></FeedbackCreatePage>
-        },
-        {
-            path : "all-feedback",
-            element : <AllFeedbackPage></AllFeedbackPage>
-        },
-        {
-            path : "feedback-update/:id",
-            element : <FeedbackUpdatePage></FeedbackUpdatePage>
-        },
-        {
-            path : "blog-create",
-            element : <BlogCreatePage></BlogCreatePage>
-        },
-        {
-            path : "all-blog",
-            element : <AllBlogPage></AllBlogPage>
-        },
-        {
-            path : "blog-update/:id",
-            element : <BlogUpdatePage></BlogUpdatePage>
-        },
-        {
-            path: "logo-upload",
-            element: <UploadLogoPage />,
-        },
-        {
-            path : "all-logo",
-            element : <AllLogoPage></AllLogoPage>
-        },
-        {
-            path : "update-logo/:id",
-            element : <UpdateLogoPage></UpdateLogoPage>
-        }
-        
-    ];
-} else {
-    routes2 = [
-        {
-            path: "/",
-            element: <LoginFormPage />,
-
-        },
-        {
-            path: "/registration",
-            element: <RegistrationForm />,
-        },
-    ];
-}
 
 export const route = createBrowserRouter([
     {
-        path: "/dashboard",
-        element: <Layout />,
-        children: routes, // Use the routes array based on the role
+        path: "/",
+        element: <LoginFormPage />,
+
     },
     {
-        path : "/",
-        element : <LayoutLogin></LayoutLogin>,
-        children : routes2
-    }
+        path: "/registration",
+        element: <RegistrationForm />,
+    },
+    {
+        path: "/send-email",
+        element: <EmailSendFromPage></EmailSendFromPage>
+    },
+    {
+        path : "/email-verify",
+        element : <EmailVerifyfFromPage></EmailVerifyfFromPage>
+    },
+    {
+        path: "/dashboard",
+        element: <Layout />,
+        children: [
+            {
+                path: "/dashboard",
+                element: <HomePage />,
+
+            },
+            {
+                path: "project-create",
+                element: <ProjectCreatePage />,
+            },
+            {
+                path: "all-projects",
+                element: <AllProjectPage />,
+            },
+            {
+                path: "project-update/:id",
+                element: <ProjectUpdatePage />,
+            },
+            {
+                path: "skill-create",
+                element: <SkillCreatePage />,
+            },
+            {
+                path: "all-skill",
+                element: <AllSkillPage />,
+            },
+            {
+                path: "skill-update/:id",
+                element: <SkillUpdatePage />,
+            },
+            {
+                path: "service-create",
+                element: <ServiceCreatePage />,
+            },
+            {
+                path: "all-services",
+                element: <AllServicePage />,
+            },
+            {
+                path: "service-update/:id",
+                element: <ServiceUpdatePage />,
+            },
+            {
+                path: "profile",
+                element: <AdminProfilePage></AdminProfilePage>
+            },
+            {
+                path: "feedback-create",
+                element: <FeedbackCreatePage></FeedbackCreatePage>
+            },
+            {
+                path: "all-feedback",
+                element: <AllFeedbackPage></AllFeedbackPage>
+            },
+            {
+                path: "feedback-update/:id",
+                element: <FeedbackUpdatePage></FeedbackUpdatePage>
+            },
+            {
+                path: "blog-create",
+                element: <BlogCreatePage></BlogCreatePage>
+            },
+            {
+                path: "all-blog",
+                element: <AllBlogPage></AllBlogPage>
+            },
+            {
+                path: "blog-update/:id",
+                element: <BlogUpdatePage></BlogUpdatePage>
+            },
+            {
+                path: "logo-upload",
+                element: <UploadLogoPage />,
+            },
+            {
+                path: "all-logo",
+                element: <AllLogoPage></AllLogoPage>
+            },
+            {
+                path: "update-logo/:id",
+                element: <UpdateLogoPage></UpdateLogoPage>
+            }
+        ]// Use the routes array based on the role
+    },
     
+
 ]);

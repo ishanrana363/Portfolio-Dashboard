@@ -113,6 +113,9 @@ function LoginForm() {
                     >
                         Login
                     </motion.button>
+                    <div>
+                        <Link className='block mt-1 hover:underline ' to={"/send-email"}>Forget Password</Link>
+                    </div>
 
                     {/* Registration Link */}
                     <div className="mt-4">
