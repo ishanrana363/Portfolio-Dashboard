@@ -28,7 +28,6 @@ const EmailVerifyFormPage = () => {
       setLoader(false);
 
       if (res) {
-        navigate("/forget-password");
         Swal.fire({
           position: "top-center",
           icon: "success",
@@ -36,6 +35,7 @@ const EmailVerifyFormPage = () => {
           showConfirmButton: false,
           timer: 1500
         });
+        navigate("/forget-password");
       } else {
         Swal.fire({
           position: "top-center",
@@ -46,6 +46,7 @@ const EmailVerifyFormPage = () => {
         });
       }
     }
+    e.target.reset();
   };
 
   return (
@@ -99,11 +100,10 @@ const EmailVerifyFormPage = () => {
           <button
             type="submit"
             disabled={loader}
-            className={`w-full py-2 px-4 font-semibold rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
-              loader
+            className={`w-full py-2 px-4 font-semibold rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${loader
                 ? 'bg-blue-300 cursor-not-allowed'
                 : 'bg-blue-600 hover:bg-blue-700 text-white'
-            }`}
+              }`}
           >
             {loader ? (
               <svg

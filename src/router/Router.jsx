@@ -11,7 +11,6 @@ import SkillUpdatePage from "../pages/skill/SkillUpdatePage";
 import ServiceCreatePage from "../pages/service-page/ServiceCreatePage";
 import AllServicePage from "../pages/service-page/AllServicePage";
 import ServiceUpdatePage from "../pages/service-page/ServiceUpdatePage";
-import { jwtDecode } from "jwt-decode";
 import AdminProfilePage from "../pages/admin-profile-page/AdminProfilePage";
 import FeedbackCreatePage from "../pages/feedback-page/FeedbackCreatePage";
 import AllFeedbackPage from "../pages/feedback-page/AllFeedbackPage";
@@ -25,7 +24,7 @@ import AllLogoPage from './../pages/logo-page/AllLogoPage';
 import UpdateLogoPage from './../pages/logo-page/UpdateLogoPage';
 import EmailSendFromPage from "../pages/password-reset-page/EmailSendFromPage";
 import EmailVerifyfFromPage from "../pages/password-reset-page/EmailVerifyfFromPage";
-import ForgetPasswordFormPage from './../pages/password-reset-page/ForgetPasswordFormPage';
+import ForgetPasswordFormPage from "../pages/password-reset-page/ForgetPasswordFormPage";
 
 
 

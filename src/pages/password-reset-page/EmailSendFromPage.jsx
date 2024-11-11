@@ -14,7 +14,7 @@ const EmailSendFromPage = () => {
     e.preventDefault();
     const email = e.target.email.value;
     const payload = { email };
-    
+
 
     if (!email) {
       toast.error(`Please enter a valid email`);
@@ -22,9 +22,7 @@ const EmailSendFromPage = () => {
       setLoader(true);
       const res = await sendEmailApi(payload);
       setLoader(false);
-
       if (res) {
-        navigate("/email-verify")
         Swal.fire({
           position: "top-center",
           icon: "success",
@@ -32,6 +30,7 @@ const EmailSendFromPage = () => {
           showConfirmButton: false,
           timer: 1500
         });
+        navigate("/email-verify")
       } else {
         Swal.fire({
           position: "top-end",
@@ -42,6 +41,7 @@ const EmailSendFromPage = () => {
         });
       }
     }
+    e.target.reset();
   };
 
   return (
@@ -71,7 +71,7 @@ const EmailSendFromPage = () => {
               name="email"
               placeholder="Enter your email"
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              
+
             />
           </div>
 
@@ -108,7 +108,7 @@ const EmailSendFromPage = () => {
         </form>
       </div>
       {
-        <Toaster position='top-center'/>
+        <Toaster position='top-center' />
       }
     </div>
   );
