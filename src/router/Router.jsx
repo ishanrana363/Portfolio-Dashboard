@@ -25,19 +25,10 @@ import AllLogoPage from './../pages/logo-page/AllLogoPage';
 import UpdateLogoPage from './../pages/logo-page/UpdateLogoPage';
 import EmailSendFromPage from "../pages/password-reset-page/EmailSendFromPage";
 import EmailVerifyfFromPage from "../pages/password-reset-page/EmailVerifyfFromPage";
+import ForgetPasswordFormPage from './../pages/password-reset-page/ForgetPasswordFormPage';
 
-const token = localStorage.getItem("token");
 
-let role = "";
-if (token) {
-    try {
-        const decodedToken = jwtDecode(token); // Decode the token
-        role = decodedToken?.user?.role; // Access the role
-        console.log("User Role:", role);
-    } catch (error) {
-        console.error("Error decoding token:", error);
-    }
-}
+
 
 
 export const route = createBrowserRouter([
@@ -57,6 +48,10 @@ export const route = createBrowserRouter([
     {
         path : "/email-verify",
         element : <EmailVerifyfFromPage></EmailVerifyfFromPage>
+    },
+    {
+        path : "/forget-password",
+        element : <ForgetPasswordFormPage></ForgetPasswordFormPage>
     },
     {
         path: "/dashboard",
