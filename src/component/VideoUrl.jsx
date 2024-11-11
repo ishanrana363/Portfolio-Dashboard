@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReactPlayer from 'react-player';
-import { AiOutlinePlayCircle } from "react-icons/ai";
+import { AiOutlinePlayCircle, AiOutlinePauseCircle } from "react-icons/ai";
 import { IoMdCloseCircleOutline } from 'react-icons/io';
 
 const videosData = [
@@ -22,6 +22,7 @@ const VideoGallery = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentVideo, setCurrentVideo] = useState(null);
     const [isPlaying, setIsPlaying] = useState(false);
+    const [videoProgress, setVideoProgress] = useState({ played: 0, duration: 0 }); // To store video progress and duration
 
     const openModal = (video) => {
         setCurrentVideo(video);
@@ -35,8 +36,23 @@ const VideoGallery = () => {
         setIsPlaying(false);
     };
 
-    const startVideo = () => {
-        setIsPlaying(true);
+    const togglePlayPause = () => {
+        setIsPlaying(prevState => !prevState); // Toggle between play and pause
+    };
+
+    const handleProgress = (progress) => {
+        setVideoProgress(progress);
+    };
+
+    const handleDuration = (duration) => {
+        setVideoProgress((prevState) => ({ ...prevState, duration }));
+    };
+
+    const formatTime = (seconds) => {
+        if (isNaN(seconds)) return "0:00";  // Check if the time is valid
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = Math.floor(seconds % 60);
+        return `${minutes}:${remainingSeconds < 10 ? '0' + remainingSeconds : remainingSeconds}`;
     };
 
     return (
@@ -78,15 +94,26 @@ const VideoGallery = () => {
                             width="100%" // Adjusted width
                             height="100%" // Adjusted height
                             style={{ borderRadius: '8px' }}
+                            onProgress={handleProgress}
+                            onDuration={handleDuration}
                         />
 
-                        {/* Play Button */}
-                        {!isPlaying && (
-                            <div 
-                                className="absolute inset-0 flex items-center justify-center cursor-pointer z-10"
-                                onClick={startVideo}
-                            >
+                        {/* Play/Pause Button */}
+                        <div 
+                            className="absolute inset-0 flex items-center justify-center cursor-pointer z-10"
+                            onClick={togglePlayPause}
+                        >
+                            {isPlaying ? (
+                                <AiOutlinePauseCircle size={80} className="text-white" />
+                            ) : (
                                 <AiOutlinePlayCircle size={80} className="text-white" />
+                            )}
+                        </div>
+
+                        {/* Video Duration and Current Time */}
+                        {isPlaying && videoProgress.duration > 0 && (
+                            <div className="absolute bottom-4 left-4 text-white z-10">
+                                <span>{formatTime(videoProgress.played * videoProgress.duration)} / {formatTime(videoProgress.duration)}</span>
                             </div>
                         )}
                     </div>
