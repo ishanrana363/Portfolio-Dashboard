@@ -1,29 +1,29 @@
+import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { createProjectApi } from "../../apiRequest/project-api/projectApi";
 import { uploadImg } from "../../upload-img/UploadImg";
-import { useState } from "react";
 import SpinnerLoader from "../full-screen-loder/Spinner";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import projectStore from "../../apiRequest/project-api/projectStore";
+import JoditEditor from "jodit-react";
 
 const ProjectCreate = () => {
-    const {totalProjectDataApi} = projectStore();
+    const { totalProjectDataApi } = projectStore();
     const [loader, setLoader] = useState(false);
+    const [documentation, setDocumentation] = useState('');
     const navigate = useNavigate();
+
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-
         const name = e.target.name.value;
         const img = e.target.img.files[0];
         const url = e.target.url.value;
-        const documentation = e.target.documentation.value;
 
-        let ImageUrl = '';
-        if (!img?.name) {
-            ImageUrl = ""
+        let ImageUrl = "";
+        if (img) {
+            ImageUrl = await uploadImg(img);
         }
-        ImageUrl = await uploadImg(img);
 
         let payload = {
             name,
@@ -32,17 +32,16 @@ const ProjectCreate = () => {
             documentation
         };
 
-        setLoader(true); // Show loader when form is submitted
+        setLoader(true);
 
         let res = await createProjectApi(payload);
-
-        setLoader(false); // Hide loader after API call completes
+        setLoader(false);
 
         if (res) {
             setLoader(true);
-            await totalProjectDataApi(1,5,0)
+            await totalProjectDataApi(1, 5, 0);
             toast.success("Created successfully");
-            navigate("/dashboard/all-projects")
+            navigate("/dashboard/all-projects");
         } else {
             toast.error("Failed to create");
         }
@@ -52,71 +51,74 @@ const ProjectCreate = () => {
 
     return (
         <>
-        <Helmet>
-            <title>Dashboard | Project Create </title>
-        </Helmet>
+            <Helmet>
+                <title>Dashboard | Project Create </title>
+            </Helmet>
             <div className="relative">
-                <div className="flex items-center justify-center bg-gray-100 min-h-screen">
-                    <div className="w-full max-w-lg bg-white p-8 rounded-lg shadow-md">
+                <div className="flex items-center justify-center bg-gray-100">
+                    <div className="w-full  bg-white p-8 rounded-lg shadow-md">
                         <h2 className="text-2xl font-semibold text-center mb-6">Create New Project</h2>
-
                         <form onSubmit={handleFormSubmit}>
-                            {/* Name Field */}
-                            <div className="mb-4">
-                                <label className="block text-gray-700 font-bold mb-2" htmlFor="name">
-                                    Name
-                                </label>
-                                <input
-                                    type="text"
-                                    id="name"
-                                    name="name"
-                                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
-                                    placeholder="Enter name"
-                                    required
-                                />
-                            </div>
+                            <div className="grid grid-cols-2 gap-2 " >
+                                {/* Name Field */}
+                                <div className="mb-4">
+                                    <label className="block text-gray-700 font-bold mb-2" htmlFor="name">
+                                        Name
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+                                        placeholder="Enter name"
+                                        required
+                                    />
+                                </div>
 
-                            {/* Image Field */}
-                            <div className="mb-4">
-                                <label className="block text-gray-700 font-bold mb-2" htmlFor="img">
-                                    Image
-                                </label>
-                                <input
-                                    type="file"
-                                    id="img"
-                                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
-                                />
+                                {/* Image Field */}
+                                <div className="mb-4">
+                                    <label className="block text-gray-700 font-bold mb-2" htmlFor="img">
+                                        Image
+                                    </label>
+                                    <input
+                                        type="file"
+                                        id="img"
+                                        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+                                    />
+                                </div>
                             </div>
 
                             {/* URL Field */}
-                            <div className="mb-4">
-                                <label className="block text-gray-700 font-bold mb-2" htmlFor="url">
-                                    URL
-                                </label>
-                                <input
-                                    type="text"
-                                    id="url"
-                                    name="url"
-                                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
-                                    placeholder="Enter URL"
-                                    required
-                                />
+                            <div className="w-1/2" >
+                                <div className="mb-4">
+                                    <label className="block text-gray-700 font-bold mb-2" htmlFor="url">
+                                        URL
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="url"
+                                        name="url"
+                                        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+                                        placeholder="Enter URL"
+                                        required
+                                    />
+                                </div>
                             </div>
 
-                            {/* Documentation Field */}
+                            {/* Documentation Field with JoditEditor */}
                             <div className="mb-4">
                                 <label className="block text-gray-700 font-bold mb-2" htmlFor="documentation">
                                     Documentation
                                 </label>
-                                <textarea
-                                    id="documentation"
-                                    name="documentation"
-                                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
-                                    rows="4"
-                                    placeholder="Enter documentation details"
-                                    required
+                                <JoditEditor
+                                    value={documentation}
+                                    onChange={(content) => setDocumentation(content)}
+                                    config={{
+                                        height: 500, // Set height to 500px
+                                    }}
                                 />
                             </div>
+
 
                             {/* Submit Button */}
                             <div className="text-center">
@@ -132,16 +134,10 @@ const ProjectCreate = () => {
                 </div>
 
                 {/* Loader Spinner */}
-                {
-                    loader && (
-                        <div>
-                            <SpinnerLoader></SpinnerLoader>
-                        </div>
-                    )
-                }
-            </div>
+                {loader && <SpinnerLoader />}
 
-            <Toaster position="top-center" reverseOrder={false} />
+                <Toaster position="top-center" reverseOrder={false} />
+            </div>
         </>
     );
 };
