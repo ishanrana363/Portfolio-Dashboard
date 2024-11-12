@@ -3,11 +3,12 @@ import { uploadImg } from "../../upload-img/UploadImg";
 import { feedbackCreateApi } from "../../apiRequest/feedback-api/feedbackApi";
 import toast, { Toaster } from "react-hot-toast";
 import SpinnerLoader from "../full-screen-loder/Spinner";
+import { Editor } from "@tinymce/tinymce-react"; // Import TinyMCE Editor
 
 const FeedbackCreate = () => {
     const [loader, setLoader] = useState(false);
+    const [feedback, setFeedback] = useState(''); // State for feedback
 
-    // Scroll to top when the component loads
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -16,7 +17,6 @@ const FeedbackCreate = () => {
         e.preventDefault();
         const name = e.target.name.value;
         const img = e.target.img.files[0];
-        const feedback = e.target.feedback.value;
 
         let feedbackImg = "";
         if (img) {
@@ -26,7 +26,7 @@ const FeedbackCreate = () => {
         const payload = {
             name,
             img: feedbackImg,
-            feedback,
+            feedback, // Use TinyMCE feedback content
         };
 
         setLoader(true);
@@ -39,74 +39,69 @@ const FeedbackCreate = () => {
             toast.error("Feedback creation failed");
         }
 
-        e.target.reset(); // Reset the form after submission
+        e.target.reset();
+        setFeedback(''); // Reset feedback after submission
     };
 
     return (
         <div>
-            <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-                <div className="w-full max-w-lg bg-white p-8 rounded-lg shadow-lg">
+            <div className=" bg-gray-100 flex items-center justify-center">
+                <div className="w-full  bg-white p-8 rounded-lg shadow-lg">
                     <h1 className="text-3xl font-bold text-center mb-6">
                         Submit Feedback
                     </h1>
 
                     <form onSubmit={submitFeedback} className="space-y-6">
-                        {/* Name Input */}
-                        <div>
-                            <label
-                                className="block text-gray-700 font-medium mb-2"
-                                htmlFor="name"
-                            >
-                                Name
-                            </label>
-                            <input
-                                type="text"
-                                id="name"
-                                name="name"
-                                placeholder="Enter your name"
-                                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                required
-                            />
+                        <div className="grid grid-cols-2 gap-4" >
+                            {/* name input field */}
+                            <div>
+                                <label className="block text-gray-700 font-medium mb-2" htmlFor="name">
+                                    Name
+                                </label>
+                                <input
+                                    type="text"
+                                    id="name"
+                                    name="name"
+                                    placeholder="Enter your name"
+                                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 shadow-md  "
+                                    required
+                                />
+                            </div>
+                            {/* img input field */}
+                            <div>
+                                <label className="block text-gray-700 font-medium mb-2" htmlFor="img">
+                                    Image
+                                </label>
+                                <input
+                                    type="file"
+                                    name="img"
+                                    id="img"
+                                    className="w-full p-3  border-gray-300 rounded-lg focus:outline-none focus:ring-2 shadow-md border "
+                                />
+                            </div>
                         </div>
 
-                        {/* Image Input */}
+                        {/* Feedback Input with TinyMCE */}
                         <div>
-                            <label
-                                className="block text-gray-700 font-medium mb-2"
-                                htmlFor="img"
-                            >
-                                Image
-                            </label>
-                            <input
-                                type="file"
-                                name="img"
-                                id="img"
-                                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            />
-                        </div>
-
-                        {/* Feedback Input */}
-                        <div>
-                            <label
-                                className="block text-gray-700 font-medium mb-2"
-                                htmlFor="feedback"
-                            >
+                            <label className="block text-gray-700 font-medium mb-2" htmlFor="feedback">
                                 Feedback
                             </label>
-                            <textarea
-                                id="feedback"
-                                name="feedback"
-                                placeholder="Enter your feedback"
-                                rows="4"
-                                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                required
+                            <Editor
+                                apiKey="ft8b9n0p6proa9uo99fmuupk57m4o74ou59wozlhw1ktb79c" // Replace with your TinyMCE API key if needed
+                                value={feedback}
+                                init={{
+                                    height: 500,
+                                    menubar: true,
+                                    plugins: ['link', 'lists', 'code'],
+                                    toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link | code',
+                                }}
+                                onEditorChange={(content) => setFeedback(content)}
                             />
                         </div>
 
-                        {/* Submit Button */}
                         <button
                             type="submit"
-                            className="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600 transition duration-300"
+                            className="  text-white p-3 rounded-lg bg-sideBarColor transition duration-300"
                         >
                             Submit Feedback
                         </button>
@@ -115,7 +110,6 @@ const FeedbackCreate = () => {
             </div>
 
             {loader && <SpinnerLoader />}
-
             <Toaster position="top-center" />
         </div>
     );
