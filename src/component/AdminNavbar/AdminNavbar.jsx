@@ -10,7 +10,7 @@ const AdminNavbar = () => {
   const [loader, setLoader] = useState(false);
   const [toggle, setToggle] = useState(false);
 
-  const logout = ()=>{
+  const logout = () => {
     localStorage.clear();
     window.location.href = "/"
   }
@@ -29,11 +29,11 @@ const AdminNavbar = () => {
 
   return (
     <>
-    <Helmet>
-      <title>Dashboard | Navbar</title>
-    </Helmet>
+      <Helmet>
+        <title>Dashboard | Navbar</title>
+      </Helmet>
       <div className="">
-        <div className="navbar bg-navBar">
+        <div className="navbar bg-gradient-to-tr from-sky-500 via-cyan-400 via-teal-300 to-green-500">
           <div className="flex-1">
             <NavLink to="/dashboard" className="btn btn-ghost text-3xl font-mono font-bold">
               Portfolio
