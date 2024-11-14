@@ -19,7 +19,7 @@ const Sidebar = () => {
 
     return (
         <aside
-            className={`bg-sideBarColor text-white transition-all duration-300 ${isSidebarOpen ? 'w-64' : 'w-14'}`}>
+            className={`bg-gradient-to-tr from-sky-500 via-cyan-400 via-teal-300 to-green-500 text-gray-950 transition-all duration-300 ${isSidebarOpen ? 'w-64' : 'w-14'}`}>
             <div className="flex justify-between items-center p-4 gap-8">
                 <div className={`text-2xl font-bold ${!isSidebarOpen && 'hidden'}`}>
                     <NavLink to={"/dashboard"}><p>Portfolio</p></NavLink>
@@ -250,6 +250,44 @@ const Sidebar = () => {
                             </ul>
                         )}
                     </li>
+
+                    {/* logo section */}
+                    <li>
+                        <div
+                            className="flex justify-between items-center cursor-pointer px-3 py-2 hover:bg-indigo-500/100 rounded-lg"
+                            onClick={() => handleMenuClick('stack-overflow')}
+                        >
+                            <div className="flex items-center">
+                                <MdOutlineManageSearch className='text-xl' />
+                                <span className={`${isSidebarOpen ? 'block' : 'hidden'} ml-3 font-bold`}>Stack Overflow</span>
+                            </div>
+                            {activeMenu === 'stack-overflow' ? <MdExpandLess /> : <MdExpandMore />}
+                        </div>
+
+                        {activeMenu === 'stack-overflow' && (
+                            <ul className="pl-6">
+                                <li>
+                                    <NavLink
+                                        to="/dashboard/upload-stack"
+                                        className={`${pathname === "/dashboard/logo-upload" ? `bg-[#55679C] text-white` : `bg-white text-[#4040f6]`} px-3 py-2 flex items-center hover:bg-indigo-500/100 rounded-lg text-lg`}
+                                    >
+                                        <MdAddCircleOutline className='text-xl' />
+                                        <span className={`${isSidebarOpen ? 'ml-3' : 'hidden'} text-sm `}>upload stack overflow</span>
+                                    </NavLink>
+                                </li>
+                                <li className="mt-2">
+                                    <NavLink
+                                        to="/dashboard/all-logo"
+                                        className={`${pathname === "/dashboard/all-logo" ? `bg-[#55679C] text-white` : `bg-white text-[#4040f6]`} px-3 py-2 flex items-center hover:bg-indigo-500/100 rounded-lg text-lg`}
+                                    >
+                                        <MdAddCircleOutline className='text-xl' />
+                                        <span className={`${isSidebarOpen ? 'ml-3' : 'hidden'}`}>All Logo</span>
+                                    </NavLink>
+                                </li>
+                            </ul>
+                        )}
+                    </li>
+
                 </ul>
             </nav>
         </aside>

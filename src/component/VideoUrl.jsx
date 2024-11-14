@@ -89,7 +89,7 @@ const VideoGallery = () => {
                     {/* Background Video */}
                     <div className="relative w-full max-w-4xl h-[70vh] flex items-center justify-center bg-gray-900 rounded-lg">
                         <ReactPlayer
-                            url={currentVideo.url}
+                            url={currentVideo}
                             playing={isPlaying}
                             width="100%" // Adjusted width
                             height="100%" // Adjusted height

@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { createBlogApi } from './../../apiRequest/blog-api/blogApi';
 import { uploadImg } from "../../upload-img/UploadImg";
-import SpinnerLoader from "../full-screen-loder/Spinner";
 import { Helmet } from "react-helmet-async";
 import { createAlert } from "../../helper/createAlert";
 import Swal from "sweetalert2";
 import { Editor } from "@tinymce/tinymce-react";
+import SpinnerLoader from "../../component/full-screen-loder/Spinner";
+import { uploadStackApi } from "../../apiRequest/stack-api/stackApi";
 
-const BlogCreate = () => {
-    const [imageUrl, setImageUrl] = useState(null); 
+const UploadStack = () => {
+    const [imageUrl, setImageUrl] = useState(null);
 
     const handleImageUpload = async (e) => {
         const file = e.target.files[0];
@@ -24,10 +25,11 @@ const BlogCreate = () => {
     };
 
     const [formData, setFormData] = useState({
+        categories: "",
         name: "",
         img: "",
-        url: "",
         description: "",
+        video : ""
     });
 
     const handleDescriptionChange = (value) => {
@@ -60,7 +62,7 @@ const BlogCreate = () => {
 
         if (resp.isConfirmed) {
             setLoading(true);
-            let res = await createBlogApi(formData);
+            let res = await uploadStackApi(formData);
             setLoading(false);
 
             if (res) {
@@ -74,9 +76,10 @@ const BlogCreate = () => {
 
                 // Reset formData and image preview after successful submission
                 setFormData({
+                    categories : "",
                     name: "",
                     img: "",
-                    url: "",
+                    video: "",
                     description: "",
                 });
                 setImageUrl(null); // Reset the image preview state
@@ -98,9 +101,10 @@ const BlogCreate = () => {
 
         // Reset formData and imageUrl manually if the form is not submitted successfully
         setFormData({
+            categories : "",
             name: "",
             img: "",
-            url: "",
+            video: "",
             description: "",
         });
         setImageUrl(null); // Reset the image preview state
@@ -109,13 +113,25 @@ const BlogCreate = () => {
     return (
         <>
             <Helmet>
-                <title>Dashboard | Project Create</title>
+                <title>Dashboard | Upload Stack</title>
             </Helmet>
             <div className="w-full max-w-3xl mx-auto p-4 bg-white shadow-md rounded-lg">
-                <h2 className="text-2xl font-bold mb-6 text-center">Create New Project</h2>
+                <h2 className="text-2xl font-bold mb-6 text-center">Create upload stack</h2>
                 <form onSubmit={handleSubmit}>
                     {/* Name and Image Fields */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div className="flex flex-col">
+                            <label htmlFor="categories" className="text-gray-700 font-bold mb-2">Categories</label>
+                            <input
+                                type="text"
+                                id="categories"
+                                name="categories"
+                                value={formData.categories}
+                                onChange={handleChange}
+                                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="Enter categories name"
+                            />
+                        </div>
                         <div className="flex flex-col">
                             <label htmlFor="name" className="text-gray-700 font-bold mb-2">Name</label>
                             <input
@@ -126,7 +142,6 @@ const BlogCreate = () => {
                                 onChange={handleChange}
                                 className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 placeholder="Enter name"
-                                required
                             />
                         </div>
                         <div className="flex flex-col">
@@ -155,23 +170,22 @@ const BlogCreate = () => {
 
                     {/* URL Field */}
                     <div className="mb-4">
-                        <label htmlFor="url" className="text-gray-700 font-bold mb-2">URL</label>
+                        <label htmlFor="video" className="text-gray-700 font-bold mb-2">video url</label>
                         <input
-                            type="text"
-                            id="url"
-                            name="url"
-                            value={formData.url}
+                            type="url"
+                            id="video"
+                            name="video"
+                            value={formData.video}
                             onChange={handleChange}
                             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="Enter URL"
-                            required
+                            placeholder="Enter Video URL"
                         />
                     </div>
 
                     {/* Documentation Field */}
                     <div className="p-2 w-full mb-10 h-full">
                         <div className="relative">
-                            <label className="leading-7 text-sm font-bold text-gray-600">Blog Description</label>
+                            <label className="leading-7 text-sm font-bold text-gray-600"> Description</label>
                             <Editor
                                 apiKey='skupslsqi0fmj0896sym31pgszkyl2m25468z8pp5ul8gr1r' // Use your own TinyMCE API key
                                 init={{
@@ -234,4 +248,4 @@ const BlogCreate = () => {
     );
 };
 
-export default BlogCreate;
+export default UploadStack;

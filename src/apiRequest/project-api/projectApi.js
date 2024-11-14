@@ -11,6 +11,7 @@ const config = {
 const axiosPublic = useAxiosPublic();
 
 export const createProjectApi = async (payload) => {
+    console.log(payload)
     try {
         let res = await axiosPublic.post(
             `${baseUrl}`,

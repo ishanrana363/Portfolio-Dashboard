@@ -26,6 +26,7 @@ import EmailSendFromPage from "../pages/password-reset-page/EmailSendFromPage";
 import EmailVerifyfFromPage from "../pages/password-reset-page/EmailVerifyfFromPage";
 import ForgetPasswordFormPage from "../pages/password-reset-page/ForgetPasswordFormPage";
 import VideoUrl from "../component/VideoUrl";
+import UploadStack from "../pages/stack-page/UploadStack";
 
 
 
@@ -141,6 +142,10 @@ export const route = createBrowserRouter([
             {
                 path: "update-logo/:id",
                 element: <UpdateLogoPage></UpdateLogoPage>
+            },
+            {
+                path : "upload-stack",
+                element : <UploadStack></UploadStack>
             }
         ]// Use the routes array based on the role
     },
