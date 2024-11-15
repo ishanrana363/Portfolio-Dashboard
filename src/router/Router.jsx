@@ -27,6 +27,7 @@ import EmailVerifyfFromPage from "../pages/password-reset-page/EmailVerifyfFromP
 import ForgetPasswordFormPage from "../pages/password-reset-page/ForgetPasswordFormPage";
 import VideoUrl from "../component/VideoUrl";
 import UploadStack from "../pages/stack-page/UploadStack";
+import AllStack from "../pages/stack-page/AllStack";
 
 
 
@@ -146,6 +147,10 @@ export const route = createBrowserRouter([
             {
                 path : "upload-stack",
                 element : <UploadStack></UploadStack>
+            },
+            {
+                path : "all-stack-overflow",
+                element : <AllStack></AllStack>
             }
         ]// Use the routes array based on the role
     },

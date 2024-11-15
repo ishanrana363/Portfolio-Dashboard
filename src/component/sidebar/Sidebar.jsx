@@ -277,11 +277,11 @@ const Sidebar = () => {
                                 </li>
                                 <li className="mt-2">
                                     <NavLink
-                                        to="/dashboard/all-logo"
-                                        className={`${pathname === "/dashboard/all-logo" ? `bg-[#55679C] text-white` : `bg-white text-[#4040f6]`} px-3 py-2 flex items-center hover:bg-indigo-500/100 rounded-lg text-lg`}
+                                        to="/dashboard/all-stack-overflow"
+                                        className={`${pathname === "/dashboard/all-stack-overflow" ? `bg-[#55679C] text-white` : `bg-white text-[#4040f6]`} px-3 py-2 flex items-center hover:bg-indigo-500/100 rounded-lg text-lg`}
                                     >
                                         <MdAddCircleOutline className='text-xl' />
-                                        <span className={`${isSidebarOpen ? 'ml-3' : 'hidden'}`}>All Logo</span>
+                                        <span className={`${isSidebarOpen ? 'ml-3' : 'hidden'}`}>All Stack Overflow</span>
                                     </NavLink>
                                 </li>
                             </ul>

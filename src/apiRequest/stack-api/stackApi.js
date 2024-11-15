@@ -19,3 +19,12 @@ export const uploadStackApi = async (payload) => {
     }
 
 }
+
+export const deleteStack = async (id)=>{
+    let res = await useAxios.delete(`/stack-delete/${id}`);
+    if (res.data.status === "success") {
+        return res.data.status
+    } else {
+        return false;
+    }
+}
