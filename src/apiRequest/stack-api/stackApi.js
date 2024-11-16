@@ -28,3 +28,12 @@ export const deleteStack = async (id)=>{
         return false;
     }
 }
+
+export const updateStack = async (id, payload) => {
+    let res = await useAxios.put(`/stack-update/${id}`, payload);
+    if (res.data.status === "success") {
+        return res.data.status
+    } else {
+        return false;
+    }
+};

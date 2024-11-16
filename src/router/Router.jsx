@@ -28,6 +28,7 @@ import ForgetPasswordFormPage from "../pages/password-reset-page/ForgetPasswordF
 import VideoUrl from "../component/VideoUrl";
 import UploadStack from "../pages/stack-page/UploadStack";
 import AllStack from "../pages/stack-page/AllStack";
+import UpdateStackPage from "../pages/stack-page/UpdateStackPage";
 
 
 
@@ -151,8 +152,12 @@ export const route = createBrowserRouter([
             {
                 path : "all-stack-overflow",
                 element : <AllStack></AllStack>
+            },
+            {
+                path :"stack-update/:id",
+                element : <UpdateStackPage></UpdateStackPage>
             }
-        ]// Use the routes array based on the role
+        ]
     },
     
 
