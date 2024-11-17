@@ -30,9 +30,9 @@ const stackStore = create((set) => ({
     },
     singleStackData : [],
     singleStackDataApi: async (id) => {
-        let res = await useAxios.get(`/single-skill/${id}`, config);
+        let res = await useAxios.get(`/single-stack/${id}`);
         if (res.data["status"] === "success") {
-            set({ singleSkillData: res.data["data"]});
+            set({ singleStackData: res.data["data"]});
         } else {
             return false;
         }

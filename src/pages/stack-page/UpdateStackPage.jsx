@@ -8,6 +8,7 @@ import { updateStack } from "../../apiRequest/stack-api/stackApi";
 import { Toaster } from "react-hot-toast";
 import SpinnerLoader from "../../component/full-screen-loder/Spinner";
 import useAxiosPublic from "../../hook/UseAxiosHook";
+import stackStore from './../../apiRequest/stack-api/stackStore';
 const axiosPublic = useAxiosPublic();
 
 const UpdateStackPage = () => {
@@ -16,27 +17,9 @@ const UpdateStackPage = () => {
     const [imageUrl, setImageUrl] = useState(null);
     const [loading, setLoading] = useState(false);
     const [tinyDescription, setTinyDescription] = useState("");
-    const [isLoading, setIsLoading] = useState(true);
+    const { singleStackDataApi, singleStackData } = stackStore();
 
-    const fetchStackData = async () => {
-        try {
-            const response = await axiosPublic.get(`/single-stack/${id}`);
-            setStack(response.data);
-            setTinyDescription(response.data.description);
-        } catch (error) {
-            Swal.fire({
-                icon: "error",
-                title: "Failed to fetch stack data",
-                text: error.message,
-            });
-        } finally {
-            setIsLoading(false);
-        }
-    };
 
-    useEffect(() => {
-        fetchStackData();
-    }, [id]);
 
     const handleImageUpload = async (e) => {
         const file = e.target.files[0];
@@ -54,69 +37,16 @@ const UpdateStackPage = () => {
         setTinyDescription(value);
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const form = e.target;
-        const image = form.image.files[0];
-        setLoading(true);
 
-        const categories = form.categories.value;
-        const name = form.name.value;
-        const img = form.img.value;
-        const description = tinyDescription;
-        const video = form.video.value;
+    useEffect(() => {
+        (async () => {
+            setLoading(true)
+            await singleStackDataApi(id)
+            setLoading(false)
+        })()
+    }, [])
 
-        try {
-            // Upload new image if selected, otherwise keep the existing one
-            let stack_img_url = stack?.img;
-            if (image) {
-                stack_img_url = await uploadImg(image);
-            }
 
-            const updatedProjectData = {
-                stack_img_url,
-                categories,
-                name,
-                img,
-                description,
-                video,
-            };
-
-            const res = await updateStack(id, updatedProjectData);
-            if (res) {
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Stack Updated",
-                    showConfirmButton: false,
-                    timer: 1500,
-                });
-                fetchStackData();
-            } else {
-                Swal.fire({
-                    position: "top-end",
-                    icon: "error",
-                    title: "Failed to update stack",
-                    showConfirmButton: false,
-                    timer: 1500,
-                });
-            }
-        } catch (error) {
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Something went wrong!",
-            });
-        } finally {
-            setLoading(false);
-        }
-
-        form.reset();
-    };
-
-    if (isLoading) {
-        return <SpinnerLoader />;
-    }
 
     return (
         <>
@@ -125,7 +55,7 @@ const UpdateStackPage = () => {
             </Helmet>
             <div className="w-full max-w-3xl mx-auto p-4 bg-white shadow-md rounded-lg">
                 <h2 className="text-2xl font-bold mb-6 text-center">Update stack</h2>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={""}>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                         <div className="flex flex-col">
                             <label htmlFor="categories" className="text-gray-700 font-bold mb-2">Categories</label>
@@ -133,7 +63,8 @@ const UpdateStackPage = () => {
                                 type="text"
                                 id="categories"
                                 name="categories"
-                                defaultValue={stack?.categories}
+                                defaultValue={singleStackData?.categories}
+                                key={Date.now()}
                                 className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 placeholder="Enter categories name"
                             />
@@ -144,10 +75,16 @@ const UpdateStackPage = () => {
                                 type="text"
                                 id="name"
                                 name="name"
-                                defaultValue={stack?.name}
+                                defaultValue={singleStackData?.name}
+                                key={Date.now()}
                                 className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 placeholder="Enter name"
                             />
+                        </div>
+                        <div className="avatar">
+                            <div className="w-24 rounded-full">
+                                <img src={singleStackData?.img} />
+                            </div>
                         </div>
                         <div className="flex flex-col">
                             <label htmlFor="img" className="text-gray-700 font-bold mb-2">Image</label>
@@ -178,7 +115,8 @@ const UpdateStackPage = () => {
                             type="url"
                             id="video"
                             name="video"
-                            defaultValue={stack.video}
+                            defaultValue={singleStackData.video}
+                            key={Date.now()}
                             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                             placeholder="Enter Video URL"
                         />

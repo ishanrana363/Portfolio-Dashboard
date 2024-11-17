@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import { deleteAlert } from "../../helper/deleteAlert";
 import moment from "moment/moment";
 import ReactPaginate from "react-paginate";
-import { serviceDeleteApi } from "../../apiRequest/service-api/serviceApi";
-import toast from "react-hot-toast";
 import { Helmet } from "react-helmet-async";
 import SpinnerLoader from './../../component/full-screen-loder/Spinner';
 import stackStore from "../../apiRequest/stack-api/stackStore";
@@ -91,7 +89,7 @@ const AllStack = () => {
     return (
         <>
             <Helmet>
-                <title>Dashboard | All Service</title>
+                <title>Dashboard | All Stack</title>
             </Helmet>
             <div className="p-4">
                 <h1 className='text-center text-lg font-semibold mb-6'>Total Project: {totalStackLength}</h1>
