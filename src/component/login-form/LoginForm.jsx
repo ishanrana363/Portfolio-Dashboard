@@ -7,6 +7,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import SpinnerLoader from './../full-screen-loder/Spinner';
 import { Helmet } from 'react-helmet-async';
+import axios from 'axios';
+import { loginAlert } from '../../helper/loginAlert';
+import { setToken } from '../../helper/sessionHelper';
+import Swal from 'sweetalert2';
 
 function LoginForm() {
     const [showPassword, setShowPassword] = useState(false);
@@ -20,29 +24,53 @@ function LoginForm() {
         e.preventDefault();
         const email = e.target.email.value;
         let password = e.target.password.value;
-        console.log(email, password);
+
         let payload = {
             email,
             password
         };
-        setLoader(true);
-        let response = await adminLoginApi(payload);
-        setLoader(false)
-        if(response){
-            window.location.href = "/dashboard";
-            toast.success("Login successful")
-        }else{
-            toast.error("Login failed")
+        
+        let resp = await loginAlert()
+        try {
+            if (resp.isConfirmed) {
+                setLoader(true)
+                let res = await axios.post(`https://protfillo-backend.vercel.app/api/v1/login`,payload);
+                setLoader(false)
+                if (res) {
+                    console.log(res.data.status);
+                    setToken(res.data["token"]);
+                    window.location.href = "/dashboard";
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Your work has been saved",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    e.target.reset()
+                }
+            }
+        } catch (error) {
+            console.log(error)
+            Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "Failed to login",
+                showConfirmButton: false,
+                timer: 1500
+            })
         }
+
+
     }
 
 
 
     return (
         <>
-        <Helmet>
-            <title>Login</title>
-        </Helmet>
+            <Helmet>
+                <title>Login</title>
+            </Helmet>
             <motion.div
                 className="flex justify-center bg-sideBarColor items-center h-screen"
                 initial={{ scale: 0.5 }} // Starts smaller (zoomed out)
