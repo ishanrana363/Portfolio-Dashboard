@@ -12,7 +12,7 @@ const config = {
 };
 
 export const logoCreateApi = async (payload)=>{
-    let res = await axiosPublic.post(`/logo-create`, payload, config);
+    let res = await axiosPublic.put(`/logo-upload`, payload, config);
     if (res.data.status === "success") {
         return res.data.status
     } else {

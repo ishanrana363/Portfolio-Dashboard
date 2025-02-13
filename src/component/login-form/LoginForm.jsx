@@ -29,12 +29,12 @@ function LoginForm() {
             email,
             password
         };
-        
+
         let resp = await loginAlert()
         try {
             if (resp.isConfirmed) {
                 setLoader(true)
-                let res = await axios.post(`https://protfillo-backend.vercel.app/api/v1/login`,payload);
+                let res = await axios.post(`https://protfillo-backend.vercel.app/api/v1/login`, payload);
                 setLoader(false)
                 if (res) {
                     console.log(res.data.status);
@@ -43,7 +43,7 @@ function LoginForm() {
                     Swal.fire({
                         position: "top-end",
                         icon: "success",
-                        title: "Your work has been saved",
+                        title: "Login successfully",
                         showConfirmButton: false,
                         timer: 1500
                     });
@@ -51,7 +51,7 @@ function LoginForm() {
                 }
             }
         } catch (error) {
-            console.log(error)
+            setLoader(false)
             Swal.fire({
                 position: "top-end",
                 icon: "error",
@@ -60,12 +60,7 @@ function LoginForm() {
                 timer: 1500
             })
         }
-
-
     }
-
-
-
     return (
         <>
             <Helmet>

@@ -7,34 +7,34 @@ import SpinnerLoader from './../full-screen-loder/Spinner';
 import Swal from 'sweetalert2';
 
 const UploadLogo = () => {
-    const [loader,setLoader] = useState(false)
-    const handleSubmit = async (e)=>{
+    const [loader, setLoader] = useState(false)
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const logo = e.target.logo.files[0];
 
         let logoUrl = "";
-        if(!logo?.name){
+        if (!logo?.name) {
             logoUrl = ''
         }
         logoUrl = await uploadImg(logo);
         const payload = {
-            logo : logoUrl,
+            logo: logoUrl,
         };
 
         const resp = await createAlert();
-        if( resp.isConfirmed){
+        if (resp.isConfirmed) {
             setLoader(true);
             const res = await logoCreateApi(payload);
             setLoader(false);
-            if(res){
+            if (res) {
                 Swal.fire({
                     position: "top-end",
                     icon: "success",
                     title: "Your logo uploaded successfully",
                     showConfirmButton: false,
                     timer: 1500
-                  });
-            }else{
+                });
+            } else {
                 toast.error("Failed to upload logo!");
             }
         }
@@ -61,16 +61,16 @@ const UploadLogo = () => {
                             />
                         </div>
 
-                        
+
 
                         <div className="flex items-center justify-between">
                             <button
                                 type="submit"
                                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                             >
-                               {
-                                loader ? "Uploading..." : " Upload Logo"
-                               }
+                                {
+                                    loader ? "Uploading..." : " Upload Logo"
+                                }
                             </button>
                         </div>
                     </form>
